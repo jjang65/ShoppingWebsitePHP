@@ -16,14 +16,28 @@ if($_POST['submit']) {
 		$password = sanitize_password();
 	}
 
-	$query = "INSERT INTO users (email, password) VALUES (:email, :password)";
-	$statement = $db->prepare($query);
-	$statement->bindValue(':email', $email);
-	$statement->bindValue(':password', $password);
-	$statement->execute();
+	$queryForDuplicate = "SELECT email FROM users WHERE email = :email";
+	$statementForDuplicate = $db->prepare($queryForDuplicate);
+	$statementForDuplicate->bindValue(':email', $email);
+	$statementForDuplicate->execute();
+	$row = $statementForDuplicate->fetch();
 
-	set_message("Registration succeeded, please login");
-	header('Location: ../../../public_html/register.php');
+	print_r($row['email']);
+
+	if($row) {
+		echo('Reached if(row)');
+		set_message("Registration failed, There is existing email. Please login.");
+		header('Location: ../../../public_html/register.php');
+	} else {
+		$query = "INSERT INTO users (email, password) VALUES (:email, :password)";
+		$statement = $db->prepare($query);
+		$statement->bindValue(':email', $email);
+		$statement->bindValue(':password', $password);
+		$statement->execute();
+
+		set_message("Registration succeeded, please login");
+		header('Location: ../../../public_html/register.php');
+	}
 } else {
 	set_message("Failed to register...");
 	header('Location: ../../../public_html/register.php');

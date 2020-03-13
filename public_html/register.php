@@ -18,8 +18,8 @@
         </div>
       </div>
     </div>
-    <h1><?php display_message() ?></h1>
-		
+    <h3 class="text-center bg-danger"><?php display_message(); ?></h3>
+    
 	<section class="ftco-section">
       <div class="container">
         <div class="row justify-content-center">
