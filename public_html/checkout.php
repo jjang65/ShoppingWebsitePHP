@@ -4,6 +4,14 @@ require_once("../resources/config.php");
 require_once("resources/cart_functions.php");
 
 /*
+ * Sanitizes an input filed.
+ * Returns sanitized string.
+ */
+function valid_required_input($input) {
+	return filter_input(INPUT_POST, $input, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+}
+
+/*
  * Validates Canadian Province code.
  * Returns true if Province code is valid; Otherwise, returns false.
  */
@@ -33,6 +41,22 @@ function valid_phone_number() {
 	return (strlen($phone) <= 10 || strlen($phone) >= 14);
 }
 
+if(!valid_required_input('firstname')) {
+	$error_messages[] = "You should input your first name.";
+}
+
+if(!valid_required_input('lastname')) {
+	$error_messages[] = "You should input your last name.";
+}
+
+if(!valid_required_input('address')) {
+	$error_messages[] = "You should input your address.";
+}
+
+if(!valid_required_input('towncity')) {
+	$error_messages[] = "You should input your town or city.";
+}
+
 if(isset($_POST['firstname']) && $_SESSION['item_total'] > 0 && $_SESSION['item_quantity'] > 0){
 
 		// store sessions to pass values from Register page to Thank you page
@@ -43,25 +67,31 @@ if(isset($_POST['firstname']) && $_SESSION['item_total'] > 0 && $_SESSION['item_
 		$_SESSION['towncity'] = filter_input(INPUT_POST, 'towncity', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 		if(!valid_province_choice()) {
-			set_message("You must choose valid province.");
-			header("Location: cart.php");
+			$error_messages[] = "You must choose valid province.";
+		} else {
+			$_SESSION['province'] = filter_input(INPUT_POST, 'province', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		}
-
-		$_SESSION['province'] = filter_input(INPUT_POST, 'province', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
+		
 		if(!valid_postal_input()) {
-			set_message("You must input valid postal code.");
-			header("Location: cart.php");
+			$error_messages[] = "You must input valid postal code.";
+		} else {
+			$_SESSION['postal'] = filter_input(INPUT_POST, 'postal', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		}
-
-		$_SESSION['postal'] = filter_input(INPUT_POST, 'postal', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 		if(!valid_phone_number()) {
-			// set_message("You must input valid phone number.");
-			header("Location: cart.php");
+			$error_messages[] = "You must input valid phone number.";
+		} else {
+			$_SESSION['phone']  = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		}
 
-		$_SESSION['phone']  = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$total_message = "";
+		if(isset($error_messages)) {
+			foreach($error_messages as $error_message) {
+				$total_message .= $error_message . "<br>";
+			}
+			set_message($total_message);
+			header("Location: billing_details.php");
+		}
 
 		// set Paypal default values
 	    $item_name = 1;
@@ -70,7 +100,7 @@ if(isset($_POST['firstname']) && $_SESSION['item_total'] > 0 && $_SESSION['item_
 	    $quantity = 1;
 
 	}else{
-		header("Location: cart.php");
+		header("Location: billing_details.php");
 	}
 
  ?>

@@ -13,14 +13,6 @@
     $statement->bindValue(':password', $password);
     $statement->execute();
     $row = $statement->fetch();
-
-    // if($row['email'] === null || $row['email'] === ""){
-    //   set_message("Your password or Username are wrong");
-    //   // redirect("sign_in.php");
-    // }else{
-    //   $_SESSION['username'] = $email;
-    //   // redirect("admin");
-    // }
   }
 
  ?>
@@ -48,7 +40,9 @@
 </div>
     <h1 class="text-center">Sign In</h1>
     <?php if(isset($row) && ($row['email'] === null || $row['email'] === "")): ?>
-      <h2 class="text-center bg-warning">Your email or passwor is wrong</h2>
+      <!-- <h2 class="text-center bg-warning">Your email or passwor is wrong</h2> -->
+      <?php set_message("Your email or passwor is wrong"); ?>
+      <?php toast_message(); ?>
     <?php elseif(isset($row) && isset($email)): ?>
       <?php $_SESSION['username'] = $email; set_message("Login successful"); header("Location: index.php");?>
     <?php endif ?>

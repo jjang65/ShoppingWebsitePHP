@@ -49,7 +49,7 @@
 		            	<label for="address">Street Address 2</label>
 		            	<div class="form-group">
 	                  <input id="address2" name="address2" type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
-	                  <p class="shippingError error" id="address2_error">&#8203;</p>
+	                  <p class="shippingError error" id="address2_error">* Required field</p>
 	                </div>
 		            </div>
 		            <div class="col-md-6">
@@ -57,7 +57,6 @@
 	                	<label for="towncity">Town / City</label>
 	                  <input id="towncity" name="towncity" type="text" class="form-control" placeholder="">
 	                  <p class="shippingError error" id="towncity_error">* Required field</p>
-	                  <p class="shippingError error" id="address2_error">&#8203;</p>
 	                </div>
 		            </div>
 		            <div class="col-md-6">

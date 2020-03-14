@@ -98,7 +98,7 @@ $item_quantity = 0;
 	<form action="#" method="post">
 		<section class="ftco-section ftco-cart">
 			<div class="container">
-				<div><h4 class="text-center bg-danger"><?php display_message(); ?></h4></div>
+				<div><h4 class="text-center bg-danger"><?php toast_message(); ?></h4></div>
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
 

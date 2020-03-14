@@ -264,37 +264,37 @@ function formHasErrors()
 	}
 
 
-	// Check if email is empty or not
-	let email = document.getElementById("email");
-	if(!formFieldHasInput(email)){
-		// Display the appropriate error message
-		document.getElementById("email_error").style.display = "block";
-		if(!errorFlag){
-			email.focus();
-			email.select();
-		}
+	// // Check if email is empty or not
+	// let email = document.getElementById("email");
+	// if(!formFieldHasInput(email)){
+	// 	// Display the appropriate error message
+	// 	document.getElementById("email_error").style.display = "block";
+	// 	if(!errorFlag){
+	// 		email.focus();
+	// 		email.select();
+	// 	}
 
-		// Raise the error flag
-		errorFlag = true;
-	}
+	// 	// Raise the error flag
+	// 	errorFlag = true;
+	// }
 
-	// Create a regular expression for email
-	let regexForEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+	// // Create a regular expression for email
+	// let regexForEmail = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-	let emailFieldValue = document.getElementById("email").value;
+	// let emailFieldValue = document.getElementById("email").value;
 
-	// Determine if the value passes the regexForAddress
-	if(!regexForEmail.test(emailFieldValue)){
-		// Display the appropriate error message
-		document.getElementById("emailformat_error").style.display = "block";	
-		if(!errorFlag){
-			email.focus();
-			email.select();
-		}
+	// // Determine if the value passes the regexForAddress
+	// if(!regexForEmail.test(emailFieldValue)){
+	// 	// Display the appropriate error message
+	// 	document.getElementById("emailformat_error").style.display = "block";	
+	// 	if(!errorFlag){
+	// 		email.focus();
+	// 		email.select();
+	// 	}
 
-		// Raise the error flag
-		errorFlag = true;
-	}
+	// 	// Raise the error flag
+	// 	errorFlag = true;
+	// }
 
 	//Raise the error flag
 	return errorFlag;
