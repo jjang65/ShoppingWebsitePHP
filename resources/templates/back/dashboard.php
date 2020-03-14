@@ -36,12 +36,11 @@
                             
                             <?php 
 
-                            $query = query("SELECT * FROM orders");
+                                $query = "SELECT * FROM orders";
+                                $statement = $db->prepare($query);
 
-                            confirm($query);
-
-                            $row_cnt = mysqli_num_rows($query);
-                            echo $row_cnt;
+                                $row_cnt = mysqli_num_rows($query);
+                                echo $row_cnt;
 
 
                              ?>

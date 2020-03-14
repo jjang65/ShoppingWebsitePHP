@@ -2,7 +2,7 @@
 
 <?php require_once("resources/cart_functions.php"); ?>
 
-<script src="js/formValidate.js" type="text/javascript"></script>
+<!-- <script src="js/formValidate.js" type="text/javascript"></script> -->
 <link rel="stylesheet" type="text/css" href="css/mysytles.css">
 
 <!-- Header Section -->

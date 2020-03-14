@@ -1,5 +1,30 @@
 <?php require_once("../resources/config.php"); ?>
 
+<?php 
+
+  if(isset($_POST['submit'])){
+
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+    $query = "SELECT * FROM users WHERE email = :email AND password = :password";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':password', $password);
+    $statement->execute();
+    $row = $statement->fetch();
+
+    // if($row['email'] === null || $row['email'] === ""){
+    //   set_message("Your password or Username are wrong");
+    //   // redirect("sign_in.php");
+    // }else{
+    //   $_SESSION['username'] = $email;
+    //   // redirect("admin");
+    // }
+  }
+
+ ?>
+
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
 
@@ -22,14 +47,16 @@
 
 </div>
     <h1 class="text-center">Sign In</h1>
-    <h2 class="text-center bg-warning"><?php display_message(); ?></h2>
+    <?php if(isset($row) && ($row['email'] === null || $row['email'] === "")): ?>
+      <h2 class="text-center bg-warning">Your email or passwor is wrong</h2>
+    <?php elseif(isset($row) && isset($email)): ?>
+      <?php $_SESSION['username'] = $email; set_message("Login successful"); header("Location: index.php");?>
+    <?php endif ?>
 
     <form class="div_center" action="" method="post" enctype="multipart/form-data">
 
-        <?php echo sign_in(); ?>
-
         <div class="form-group"><label for="">
-            username<input type="text" name="username" class="form-control"></label>
+            Email<input type="text" name="email" class="form-control"></label>
         </div>
          <div class="form-group"><label for="password">
             Password<input type="password" name="password" class="form-control"></label>

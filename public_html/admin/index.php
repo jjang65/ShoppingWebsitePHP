@@ -13,8 +13,6 @@ if(!isset($_SESSION['username'])){
 
             <div class="container-fluid">
 
-                
-
             <?php
 
             if(($_SERVER['REQUEST_URI'] == "/project/ecommerce/public_html/admin/") || ($_SERVER['REQUEST_URI'] == "/project/ecommerce/public_html/admin/index.php")){

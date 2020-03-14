@@ -6,7 +6,7 @@
 	<!-- Main Image Section -->
 	<?php include(TEMPLATE_FRONT . DS . "main_image.php") ?>
 
-        <h3 class="text-center bg-warning"><?php display_message(); ?></h3>
+        <?php toast_message(); ?>
     
     <!-- Slider Section -->
     <?php include(TEMPLATE_FRONT . DS . "slider.php") ?>

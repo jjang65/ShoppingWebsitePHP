@@ -21,6 +21,7 @@
 	      <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
 	      <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 	      <li class="nav-item"><a href="sign_in.php" class="nav-link">Sign In</a></li>
+	      <li class="nav-item"><a href="logout.php" class="nav-link">Log out</a></li>
 	      <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
 	      <li class="nav-item"><a href="#" class="nav-link">Admin</a></li>
 	    </ul>

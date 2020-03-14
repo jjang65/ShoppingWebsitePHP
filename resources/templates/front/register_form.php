@@ -15,8 +15,7 @@
 	                  <p class="shippingError error" id="lastname_error">* Required field</p>
 	                </div>
                 </div>
-                <div class="w-100"></div>
-		            <div class="col-md-12">
+		            <div class="col-md-6">
 		            	<div class="form-group">
 		            	  <label for="province">Province</label>
 		            		<div class="select-wrap">
@@ -39,7 +38,6 @@
 		                </div>
 		            	</div>
 		            </div>
-		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
 	                	<label for="address">Street Address</label>
@@ -48,12 +46,12 @@
 	                </div>
 		            </div>
 		            <div class="col-md-6">
+		            	<label for="address">Street Address 2</label>
 		            	<div class="form-group">
 	                  <input id="address2" name="address2" type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
 	                  <p class="shippingError error" id="address2_error">&#8203;</p>
 	                </div>
 		            </div>
-		            <div class="w-100"></div>
 		            <div class="col-md-6">
 		            	<div class="form-group">
 	                	<label for="towncity">Town / City</label>
@@ -70,7 +68,6 @@
 	                  <p class="shippingError error" id="postalformat_error">* Invalid postal code</p>
 	                </div>
 		            </div>
-		            <div class="w-100"></div>
 		            <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="phone">Phone</label>
@@ -79,15 +76,6 @@
 	                  <p class="shippingError error" id="phoneformat_error">* Invalid Phone Number</p>
 	                </div>
 	              </div>
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="email">Email Address</label>
-	                  <input id="email" name="email" type="text" class="form-control" placeholder="">
-	                  <p class="shippingError error" id="email_error">* Required field</p>
-	                  <p class="shippingError error" id="emailformat_error">* Invalid email address</p>
-	                </div>
-                </div>
-                <div class="w-100"></div>
 
                 <div class="col-md-6">
 	                <div class="form-group">

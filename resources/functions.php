@@ -1,6 +1,6 @@
 <?php 
 
-
+require_once("connect.php");
 
 
 /************************************************ Helper Functions ***********************************************************/
@@ -34,7 +34,6 @@ function redirect_prior_page($prior_webpage_name){
 
 
 function set_message($msg){
-
 	if(!empty($msg)){
 		$_SESSION['message'] = $msg;
 	}else{
@@ -49,6 +48,17 @@ function display_message(){
 		echo $_SESSION['message'];
 		unset($_SESSION['message']);
 	}
+}
+
+function toast_message() {
+	if(isset($_SESSION['message'])) {
+        echo '<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>';
+        echo '<link href="node_modules/toastr/build/toastr.css" rel="stylesheet"/>';
+        echo '<script src="node_modules/toastr/toastr.js"></script>';
+        echo '<script type="text/javascript">', 'let message =', json_encode($_SESSION['message']), ';', '</script>';
+        echo '<script type="text/javascript">', 'toastr.options.closeButton = true;', 'toastr.info(message);', '</script>';
+        unset($_SESSION['message']);
+    }
 }
 
 
@@ -204,50 +214,34 @@ DELIMETER;
 
 
 
-function sign_in(){
-	if(isset($_POST['submit'])){
-		$username = escape_string($_POST['username']);
-		$password = escape_string($_POST['password']);
+// function sign_in(){
+// 	if(isset($_POST['submit'])){
 
-		$query = query("SELECT * FROM users WHERE username = '{$username}' AND '${password}' ");
-		confirm($query);
+// 		$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+// 		$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-		if(mysqli_num_rows($query) == 0){
-			set_message("Your password or Username are wrong");
-			redirect("sign_in.php");
-		}else{
-			$_SESSION['username'] = $username;
-			redirect("admin");
-		}
-	}
-}
+// 		$query = "SELECT * FROM users WHERE email = :email AND password = :password";
+// 		$statement = $db->prepare($query);
+// 		$statement->bindValue(':email', $email);
+// 		$statement->bindValue(':password', $password);
+// 		$statement->execute();
+// 		$row = $statement->fetch();
+// 		print_r($row);
+
+// 		if($row['email'] === null || $row['email'] === ""){
+// 			set_message("Your password or Username are wrong");
+// 			redirect("sign_in.php");
+// 		}else{
+// 			$_SESSION['username'] = $email;
+// 			redirect("admin");
+// 		}
+// 	}
+// }
 
 
 
 function send_message(){
 	if(isset($_POST['submit'])){
-
-		// $to 			= "jjy2zzbai2@gmail.com";
-		// $from_name  	= $_POST['name'];
-		// $subject 		= $_POST['subject'];
-		// $email 			= $_POST['email'];
-		// $message 		= $_POST['message'];
-		// $subject_show   = $subject . " from " . $from_name . " at " . $email;
-		// $message_show   = "Name: " . $from_name . "\n" . "Email: " . $email . "\n" . "Message: " . $message;
-
-		// $headers = "From: {$from_name} {$email}";
-
-		// $result = mail($to, $subject_show, $message_show, $headers);
-
-		// print_r($result);
-
-		// if(!$result){
-		// 	set_message("Sorry, we could not send your message");
-		// 	//redirect("contact.php");
-		// }else{
-		// 	set_message("Your message has been sent");
-		// 	//redirect("contact.php");
-		// }
 
 		require_once __DIR__ . DIRECTORY_SEPARATOR . '../vendor/autoload.php';
 
@@ -269,13 +263,12 @@ function send_message(){
 
 		// Send the message
 		$result = $mailer->send($message);
-
 	}
 }
 
 
 
-/*************************************************************ADMIN PAGES***********************************************************/
+/***************ADMIN PAGES**********************/
 
 function show_admin_top_nav(){
 	// To print Username on top-right corner
