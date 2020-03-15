@@ -15,7 +15,7 @@ if(!isset($_SESSION['username'])){
 
             <?php
 
-            if(($_SERVER['REQUEST_URI'] == "/project/ecommerce/public_html/admin/") || ($_SERVER['REQUEST_URI'] == "/project/ecommerce/public_html/admin/index.php")){
+            if(($_SERVER['REQUEST_URI'] == "/ecommerce/public_html/admin/") || ($_SERVER['REQUEST_URI'] == "/ecommerce/public_html/admin/index.php")){
                 include(TEMPLATE_BACK . DS . "dashboard.php"); 
             }
 

@@ -1,4 +1,16 @@
+<?php 
+if(isset($_SESSION['username'])) {
+	$email = $_SESSION['username'];
+	$query = "SELECT role FROM users WHERE email = :email";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':email', $email);
+	$statement->execute();
+	$role = $statement->fetch();
+	echo ' ' . $role['role'];
+}
 
+
+ ?>
 	<div class="container">
 	  <a class="navbar-brand" href="index.php">Modist</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,10 +32,16 @@
 	      <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li> -->
 	      <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
 	      <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
-	      <li class="nav-item"><a href="sign_in.php" class="nav-link">Sign In</a></li>
-	      <li class="nav-item"><a href="logout.php" class="nav-link">Log out</a></li>
+	      <?php if(!isset($_SESSION['username'])): ?>
+	      	<li class="nav-item"><a href="sign_in.php" class="nav-link">Sign In</a></li>
+	      <?php endif ?>
+	      <?php if(isset($_SESSION['username'])): ?>
+	      	<li class="nav-item"><a href="logout.php" class="nav-link">Log out</a></li>
+	      <?php endif ?>
 	      <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
-	      <li class="nav-item"><a href="#" class="nav-link">Admin</a></li>
+	      <?php if(isset($_SESSION['username']) && $role['role'] === 'admin'): ?>
+	      	<li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
+	      <?php endif ?>
 	    </ul>
 	  </div>
 	</div>

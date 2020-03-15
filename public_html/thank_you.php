@@ -24,7 +24,8 @@
 
         }else{
             session_destroy();
-            // header("Location: index.php");
+            set_message("Something wrong. Sign in again.");
+            header("Location: index.php");
         }
 
         // reset total and item_quantity 
@@ -35,7 +36,9 @@
 
     } else {
         // if there is no transaction data, send the user to index.php
-        // redirect("index.php");
+        session_destroy();
+        set_message("Something wrong. Sign in again.");
+        redirect("index.php");
     }
 
  ?>
@@ -177,7 +180,12 @@
     						<span>Total</span>
     						<span id="totalAmount">&#36;
     							<?= isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = 0; ?>
+
+                                <!-- After a transaction, destroy all sessions and assign user session again. -->
+                                <?php $username = $_SESSION['username']; ?>
                                 <?php session_destroy(); ?>
+                                <?php $_SESSION['username'] = $username; ?>
+
     						</span>
     					</p>
     				</div>

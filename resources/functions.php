@@ -603,41 +603,41 @@ function update_user(){
 
 
 
-function show_transaction_in_dashboard(){
+// function show_transaction_in_dashboard(){
 
-	$query = query("SELECT * FROM orders");
-	confirm($query);
+// 	$query = query("SELECT * FROM orders");
+// 	confirm($query);
 
-	// get total number of rows in orders table
-	$row_cnt = mysqli_num_rows($query);
+// 	// get total number of rows in orders table
+// 	$row_cnt = mysqli_num_rows($query);
 
-	// get starting row to be shown
-	$showrows = 8;
-	if($row_cnt < 8){
-		$showrows = $row_cnt;
-		$startrow = $row_cnt - $showrows;
-	}else{
-		$startrow = $row_cnt - $showrows;
-	}
+// 	// get starting row to be shown
+// 	$showrows = 8;
+// 	if($row_cnt < 8){
+// 		$showrows = $row_cnt;
+// 		$startrow = $row_cnt - $showrows;
+// 	}else{
+// 		$startrow = $row_cnt - $showrows;
+// 	}
 
-	// get query that selects oders from 8 latest orders
-	$new_query = query("SELECT * FROM orders LIMIT $startrow, $showrows ");
-	confirm($new_query);
+// 	// get query that selects oders from 8 latest orders
+// 	$new_query = query("SELECT * FROM orders LIMIT $startrow, $showrows ");
+// 	confirm($new_query);
 
-	while($row = fetch_array($new_query)){
-		$order =<<<DELIMETER
-		<tr>
-			<td>{$row['order_id']}</td>
-			<td>{$row['order_date']}</td>
-			<td>{$row['order_time']}</td>
-			<td>&#36;{$row['order_amount']}</td>
-			<td>{$row['firstname']}</td>
-			<td>{$row['lastname']}</td>
-		</tr>
-DELIMETER;
-		echo $order;
-	}
-}
+// 	while($row = fetch_array($new_query)){
+// 		$order =<<<DELIMETER
+// 		<tr>
+// 			<td>{$row['order_id']}</td>
+// 			<td>{$row['order_date']}</td>
+// 			<td>{$row['order_time']}</td>
+// 			<td>&#36;{$row['order_amount']}</td>
+// 			<td>{$row['firstname']}</td>
+// 			<td>{$row['lastname']}</td>
+// 		</tr>
+// DELIMETER;
+// 		echo $order;
+// 	}
+// }
 
 
 

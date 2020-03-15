@@ -1,4 +1,47 @@
 <?php require_once("../../resources/config.php"); ?>
+<?php 
+
+    $query_orders = "SELECT * FROM orders WHERE date_created BETWEEN (NOW() - INTERVAL 1 MONTH) AND NOW()";
+    $statement_orders = $db->prepare($query_orders);
+    $statement_orders->execute();
+    $statement_orders->rowCount();
+
+    $query_products = "SELECT * FROM products LIMIT 20";
+    $statement_products = $db->prepare($query_products);
+    $statement_products->execute();
+
+    $query_categories = "SELECT * FROM categories LIMIT 20";
+    $statement_categories = $db->prepare($query_categories);
+    $statement_categories->execute();
+
+    // get total number of rows in orders table
+    $query_all_orders = "SELECT * FROM orders";
+    $statement_all_orders = $db->prepare($query_all_orders);
+    $statement_all_orders->execute();
+    $row_cnt = $statement_all_orders->rowCount();
+
+    // get starting row to be shown
+    $showrows = 8;
+    if($row_cnt < 8){
+        $showrows = $row_cnt;
+        $startrow = $row_cnt - $showrows;
+    }else{
+        $startrow = $row_cnt - $showrows;
+    }
+
+    // get query that selects oders from 8 latest orders
+    $query_latest_orders = "SELECT * FROM orders LIMIT $startrow, $showrows ";
+    $statement_latest_orders = $db->prepare($query_latest_orders);
+    $statement_latest_orders->execute();
+    $quotes = $statement_latest_orders->fetchAll();
+
+    // get latest enrolled users
+    $query_users = "SELECT * FROM users LIMIT 8";
+    $statement_users = $db->prepare($query_users);
+    $statement_users->execute();
+    $users_quotes = $statement_users->fetchAll();
+
+ ?>
 
 <!-- Page Heading -->
 <div class="row">
@@ -34,16 +77,7 @@
                     <div class="col-xs-9 text-right">
                         <div class="huge">
                             
-                            <?php 
-
-                                $query = "SELECT * FROM orders";
-                                $statement = $db->prepare($query);
-
-                                $row_cnt = mysqli_num_rows($query);
-                                echo $row_cnt;
-
-
-                             ?>
+                            <?= $statement_orders->rowCount() ?>
 
                         </div>
                         <div>New Orders!</div>
@@ -70,17 +104,9 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">
-                            <?php 
 
-                            $query = query("SELECT * FROM products");
+                            <?= $statement_products->rowCount(); ?>
 
-                            confirm($query);
-
-                            $row_cnt = mysqli_num_rows($query);
-                            echo $row_cnt;
-
-
-                             ?>
                         </div>
                         <div>Products!</div>
                     </div>
@@ -105,18 +131,8 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">
-                            
-                            <?php 
 
-                            $query = query("SELECT * FROM categories");
-
-                            confirm($query);
-
-                            $row_cnt = mysqli_num_rows($query);
-                            echo $row_cnt;
-
-
-                             ?>
+                            <?= $statement_categories->rowCount() ?>
 
                         </div>
                         <div>Categories!</div>
@@ -153,16 +169,23 @@
                         <thead>
                             <tr>
                                 <th>Order #</th>
-                                <th>Order Date</th>
-                                <th>Order Time</th>
                                 <th>Amount (CAD)</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
+                                <th>Order Time</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
-                            <?php show_transaction_in_dashboard(); ?>
+
+                            <?php foreach($quotes as $quote): ?>
+                                <tr>
+                                    <td><?= $quote['id'] ?></td>
+                                    <td>&#36;<?= $quote['amount'] ?></td>
+                                    <td><?= $quote['firstname'] ?></td>
+                                    <td><?= $quote['lastname'] ?></td>
+                                    <td><?= $quote['date_created'] ?></td>
+                                </tr>
+                            <?php endforeach ?>
 
                         </tbody>
                     </table>
@@ -178,16 +201,16 @@
      <div class="col-lg-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> User Register Panel</h3>
+                <h3 class="panel-title"><i class="fa fa-user fa-fw"></i> User Register Panel</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>User No.</th>
+                                <th>No.</th>
                                 <th>Username</th>
-                                <th>Register Time</th>
+                                <th>Register Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -196,9 +219,15 @@
                                 <td>10/21/2013</td>
                                 <td>3:29 PM</td>
                             </tr> -->
-                            <?php 
-                                show_users_in_dashboard();
-                             ?>
+
+                            <?php foreach($users_quotes as $users_quote): ?> 
+                                <tr>
+                                    <td><?= $users_quote['id'] ?></td>
+                                    <td><?= $users_quote['email'] ?></td>
+                                    <td><?= substr($users_quote['time_created'], 0, 10) ?></td>
+                                </tr>
+                            <?php endforeach ?>
+
                         </tbody>
                     </table>
                 </div>
