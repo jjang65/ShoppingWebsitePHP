@@ -30,6 +30,7 @@
             <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
             <div class="row col-md-9">
+              <?php toast_message(); ?>
 
               <?php foreach($quotes_prods as $quote): ?>
 

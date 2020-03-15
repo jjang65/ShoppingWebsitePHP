@@ -4,7 +4,8 @@
 <?php 
 
 if(!isset($_SESSION['username'])){
-    redirect("../index.php");
+    set_message("Please log in");
+    header("Location: ./../index.php");
 }
 
  ?>

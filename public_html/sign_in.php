@@ -46,7 +46,7 @@
     <?php elseif(isset($row) && isset($email)): ?>
       <?php $_SESSION['username'] = $email; set_message("Login successful"); header("Location: index.php");?>
     <?php endif ?>
-
+      <?php toast_message(); ?>
     <form class="div_center" action="" method="post" enctype="multipart/form-data">
 
         <div class="form-group"><label for="">

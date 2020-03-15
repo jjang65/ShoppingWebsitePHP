@@ -6,7 +6,6 @@ if(isset($_SESSION['username'])) {
 	$statement->bindValue(':email', $email);
 	$statement->execute();
 	$role = $statement->fetch();
-	echo ' ' . $role['role'];
 }
 
 
