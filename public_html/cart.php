@@ -2,6 +2,7 @@
 require_once("../resources/config.php"); 
 require_once("resources/cart_functions.php"); 
 
+
 $total = 0;
 $item_quantity = 0;
 
@@ -199,11 +200,15 @@ $item_quantity = 0;
     					</p>
     					<p class="d-flex">
     						<span>Delivery</span>
-                            <?php if($_SESSION['item_total'] >= 100): ?>
-    					   	    <span>Free Shipping</span>
-                            <?php else: ?>
-                                <span>$30</span>
-                            <?php $_SESSION['item_total'] = $_SESSION['item_total'] + 30; ?>
+                            <?php if(isset($_SESSION['item_total'])): ?>
+                                <?php if($_SESSION['item_total'] >= 100): ?>
+        					   	    <span>Free Shipping</span>
+                                    <?php $_SESSION['transfer_fee'] = 0; ?>
+                                <?php else: ?>
+                                    <?php $_SESSION['transfer_fee'] = 30; ?>
+                                    <span><?= $_SESSION['transfer_fee'] ?></span>
+                                <?php $_SESSION['item_total'] = $_SESSION['item_total'] + $_SESSION['transfer_fee']; ?>
+                                <?php endif ?>
                             <?php endif ?>
     					</p>
     					<!-- <p class="d-flex">

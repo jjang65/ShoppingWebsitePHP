@@ -14,11 +14,11 @@ function debug_to_console( $data ) {
 }
 
 
-function last_id(){
-	global $connection;
+// function last_id(){
+// 	global $connection;
 
-	return mysqli_insert_id($connection);
-}
+// 	return mysqli_insert_id($connection);
+// }
 
 
 
@@ -41,8 +41,6 @@ function set_message($msg){
 	}
 }
 
-
-
 function display_message(){
 	if(isset($_SESSION['message'])){
 		echo $_SESSION['message'];
@@ -62,23 +60,6 @@ function toast_message() {
 }
 
 
-function confirm($result){
-	global $connection;
-	if(!$result){
-		die("QUERY FAILED" . mysqli_error($connection));
-	}
-}
-
-function escape_string($string){
-	global $connection;
-	return mysqli_real_escape_string($connection, $string);
-}
-
-function fetch_array($result){
-	return mysqli_fetch_array($result);
-}
-
-
 
 
 
@@ -89,126 +70,126 @@ function fetch_array($result){
 /************************************************ Frent End Functions ***********************************************************/
 
 
-function get_slides_in_index(){
-	$query = query("SELECT * FROM products");
-	confirm($query);
+// function get_slides_in_index(){
+// 	$query = query("SELECT * FROM products");
+// 	confirm($query);
 
-	// get total number of rows in orders table
-	$row_cnt = mysqli_num_rows($query);
+// 	// get total number of rows in orders table
+// 	$row_cnt = mysqli_num_rows($query);
 
-	// get starting row to be shown
-	$showrows = 6;
-	if($row_cnt < 6){
-		$showrows = $row_cnt;
-		$startrow = $row_cnt - $showrows;
-	}else{
-		$startrow = $row_cnt - $showrows;
-	}
+// 	// get starting row to be shown
+// 	$showrows = 6;
+// 	if($row_cnt < 6){
+// 		$showrows = $row_cnt;
+// 		$startrow = $row_cnt - $showrows;
+// 	}else{
+// 		$startrow = $row_cnt - $showrows;
+// 	}
 
-	// get query that selects oders from 8 latest orders
-	$new_query = query("SELECT * FROM products LIMIT $startrow, $showrows ");
-	confirm($new_query);
+// 	// get query that selects oders from 8 latest orders
+// 	$new_query = query("SELECT * FROM products LIMIT $startrow, $showrows ");
+// 	confirm($new_query);
 
-	while($row = fetch_array($new_query)){
-		$product =<<<DELIMETER
-		<div class="item">
-			<div class="product">
-				<a href="product-single.php?id={$row['product_id']}" class="img-prod"><img class="img-fluid" src="resources/uploads/{$row['product_image']}" alt="Colorlib Template">
-			</a>
-				<div class="text pt-3 px-3">
-					<h3><a href="product-single.php?id={$row['product_id']}">{$row['product_title']}</a></h3>
-					<div class="d-flex">
-						<div class="pricing">
-							<p class="price"><span class="price-sale">&#36;{$row['product_price']}</span></p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-DELIMETER;
-		echo $product;
-	}
-}
-
-
-
-function get_products_in_index(){
-	$query = query("SELECT * FROM products");
-	confirm($query);
-
-	while($row = fetch_array($query)){
-		$product = <<<DELIMETER
-
-		<div class="col-sm col-md-6 col-lg-3 ftco-animate">
-			<div class="product">
-				<a href="product-single.php?id={$row['product_id']}" class="img-prod"><img class="img-fluid" src="resources/uploads/{$row['product_image']}" alt="Colorlib Template"></a>
-				<div class="text py-3 px-3">
-					<h3><a href="product-single.php?id={$row['product_id']}">{$row['product_title']}</a></h3>
-					<div class="d-flex">
-						<div class="pricing">
-    						<p class="price"><span>&#36;{$row['product_price']}</span></p>
-    					</div>
-					</div>
-					<hr>
-					<p class="bottom-area d-flex">
-						<a href="resources/cart.php?add={$row['product_id']}" class="add-to-cart"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-DELIMETER;
-		echo $product;
-	}
-}
-
-
-function get_categories(){
-	$query = query("SELECT * FROM categories");
-	confirm($query);
-
-	while($row = fetch_array($query)){
-		$category = <<<DELIMETER
-		<div class="list-group">
-		    <a href="categories.php?id={$row['cat_id']}" class="list-group-item">{$row['cat_title']}</a>
-		</div>
-
-DELIMETER;
-		echo $category;
-	}
-}
+// 	while($row = fetch_array($new_query)){
+// 		$product =<<<DELIMETER
+// 		<div class="item">
+// 			<div class="product">
+// 				<a href="product-single.php?id={$row['product_id']}" class="img-prod"><img class="img-fluid" src="resources/uploads/{$row['product_image']}" alt="Colorlib Template">
+// 			</a>
+// 				<div class="text pt-3 px-3">
+// 					<h3><a href="product-single.php?id={$row['product_id']}">{$row['product_title']}</a></h3>
+// 					<div class="d-flex">
+// 						<div class="pricing">
+// 							<p class="price"><span class="price-sale">&#36;{$row['product_price']}</span></p>
+// 						</div>
+// 					</div>
+// 				</div>
+// 			</div>
+// 		</div>
+// DELIMETER;
+// 		echo $product;
+// 	}
+// }
 
 
 
-function get_products_in_cat_page(){
-	$query = query("SELECT * FROM products WHERE product_category_id = " . escape_string($_GET['id']) . " " );
-	confirm($query);
+// function get_products_in_index(){
+// 	$query = query("SELECT * FROM products");
+// 	confirm($query);
 
-	while($row = fetch_array($query)){
-		$categories_link = <<<DELIMETER
-		<div class="col-sm col-md-6 col-lg-3 ftco-animate">
-			<div class="product">
-				<a href="product-single.php?id={$row['product_id']}" class="img-prod"><img class="img-fluid" src="resources/uploads/{$row['product_image']}" alt="Colorlib Template">
+// 	while($row = fetch_array($query)){
+// 		$product = <<<DELIMETER
+
+// 		<div class="col-sm col-md-6 col-lg-3 ftco-animate">
+// 			<div class="product">
+// 				<a href="product-single.php?id={$row['product_id']}" class="img-prod"><img class="img-fluid" src="resources/uploads/{$row['product_image']}" alt="Colorlib Template"></a>
+// 				<div class="text py-3 px-3">
+// 					<h3><a href="product-single.php?id={$row['product_id']}">{$row['product_title']}</a></h3>
+// 					<div class="d-flex">
+// 						<div class="pricing">
+//     						<p class="price"><span>&#36;{$row['product_price']}</span></p>
+//     					</div>
+// 					</div>
+// 					<hr>
+// 					<p class="bottom-area d-flex">
+// 						<a href="resources/cart.php?add={$row['product_id']}" class="add-to-cart"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+// 					</p>
+// 				</div>
+// 			</div>
+// 		</div>
+
+// DELIMETER;
+// 		echo $product;
+// 	}
+// }
+
+
+// function get_categories(){
+// 	$query = query("SELECT * FROM categories");
+// 	confirm($query);
+
+// 	while($row = fetch_array($query)){
+// 		$category = <<<DELIMETER
+// 		<div class="list-group">
+// 		    <a href="categories.php?id={$row['cat_id']}" class="list-group-item">{$row['cat_title']}</a>
+// 		</div>
+
+// DELIMETER;
+// 		echo $category;
+// 	}
+// }
+
+
+
+// function get_products_in_cat_page(){
+// 	$query = query("SELECT * FROM products WHERE product_category_id = " . escape_string($_GET['id']) . " " );
+// 	confirm($query);
+
+// 	while($row = fetch_array($query)){
+// 		$categories_link = <<<DELIMETER
+// 		<div class="col-sm col-md-6 col-lg-3 ftco-animate">
+// 			<div class="product">
+// 				<a href="product-single.php?id={$row['product_id']}" class="img-prod"><img class="img-fluid" src="resources/uploads/{$row['product_image']}" alt="Colorlib Template">
 					
-				</a>
-				<div class="text py-3 px-3">
-					<h3><a href="product-single.php?id={$row['product_id']}">{$row['product_title']}</a></h3>
-					<div class="d-flex">
-						<div class="pricing">
-							<p class="price"><span class="price-sale">&#36;{$row['product_price']}</span></p>
-						</div>
-					</div>
-					<hr>
-					<p class="bottom-area d-flex">
-						<a href="cart.php?add={$row['product_id']}" class="add-to-cart"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-					</p>
-				</div>
-			</div>
-		</div>
-DELIMETER;
-		echo $categories_link;
-	}
-}
+// 				</a>
+// 				<div class="text py-3 px-3">
+// 					<h3><a href="product-single.php?id={$row['product_id']}">{$row['product_title']}</a></h3>
+// 					<div class="d-flex">
+// 						<div class="pricing">
+// 							<p class="price"><span class="price-sale">&#36;{$row['product_price']}</span></p>
+// 						</div>
+// 					</div>
+// 					<hr>
+// 					<p class="bottom-area d-flex">
+// 						<a href="cart.php?add={$row['product_id']}" class="add-to-cart"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+// 					</p>
+// 				</div>
+// 			</div>
+// 		</div>
+// DELIMETER;
+// 		echo $categories_link;
+// 	}
+// }
 
 
 

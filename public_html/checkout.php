@@ -37,7 +37,6 @@ function valid_phone_number() {
 	$phone = str_replace("-", "", $phone);
 	$phone = str_replace("(", "", $phone);
 	$phone = str_replace(")", "", $phone);
-	set_message($phone);
 	return (strlen($phone) <= 10 || strlen($phone) >= 14);
 }
 
@@ -199,7 +198,7 @@ if(isset($_POST['firstname']) && $_SESSION['item_total'] > 0 && $_SESSION['item_
 												?>
 
 												<?php endforeach ?>
-
+												<input type="hidden" name="shipping_1" value="<?= $_SESSION['transfer_fee'] ?>">
 										<?php endif ?>
 
 									<?php endif ?>
@@ -218,25 +217,24 @@ if(isset($_POST['firstname']) && $_SESSION['item_total'] > 0 && $_SESSION['item_
 	          		<div class="cart-detail cart-total bg-light p-3 p-md-4">
 	          			<h3 class="billing-heading mb-4">Cart Total</h3>
 	          			<p class="d-flex">
-    						<span>Subtotal</span>
+    						<span>Item Quantity</span>
     						<span>
-    							<?= isset($_SESSION['item_quantity']) ? $_SESSION['item_quantity'] : $_SESSION['item_quantity'] = "0"?>
+    							<?= isset($_SESSION['item_quantity']) ? $_SESSION['item_quantity'] : $_SESSION['item_quantity'] = 0?>
     						</span>
 	    				</p>
     					<p class="d-flex">
     						<span>Delivery</span>
-    						<?php if($_SESSION['item_total'] >= 100): ?>
+    						<?php if($_SESSION['transfer_fee'] === 0): ?>
 				   	    		<span>Free Shipping</span>
                     		<?php else: ?>
-                        		<span>$30</span>
-                    			<?php $_SESSION['item_total'] = $_SESSION['item_total'] + 30; ?>
+                        		<span>&#36;<?= $_SESSION['transfer_fee'] ?></span>
                     		<?php endif ?>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
     						<span>&#36;
-    							<?= isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = "0"; ?>
+    							<?= isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = 0; ?>
     						</span>
     					</p>
 						</div>
