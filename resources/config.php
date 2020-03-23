@@ -18,5 +18,6 @@ define("UPLOAD_DIRECTORY", "../resources/uploads");
 
 require_once("functions.php");
 require_once("connect.php");
+require_once("email_config.php");
 
  ?>
