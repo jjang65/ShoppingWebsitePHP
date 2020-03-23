@@ -2,10 +2,10 @@
 <?php 
 
     if(isset($_SESSION['username'])){
-        $username = filter_var($_SESSION['username']);
-        $query = "SELECT * FROM users WHERE username = :username";
+        $email = filter_var($_SESSION['username']);
+        $query = "SELECT * FROM users WHERE email = :email";
         $statement = $db->prepare($query);
-        $statement->bindValue(':username', $username);
+        $statement->bindValue(':email', $email);
         $statement->execute();
         $rows = $statement->fetchAll();
     }
@@ -21,12 +21,13 @@
     </button>
     <a class="navbar-brand" href="index.php">ADMIN CENTER</a>
     <a class="navbar-brand" href="../index.php">HOME</a>
+    
 </div>
 
     <?php foreach($rows as $row): ?>
         <ul class="nav navbar-right top-nav">
             <li class="dropdown">
-                <a href="index.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><?= $row['email'] ?><b class="caret"></b></a>
+                <a href="index.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?= $row['email'] ?><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li class="divider"></li>
                     <li>

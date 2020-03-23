@@ -13,6 +13,16 @@
     $statement->bindValue(':password', $password);
     $statement->execute();
     $row = $statement->fetch();
+
+    if(isset($row) && ($row['email'] === null || $row['email'] === "")) {
+      set_message("Your email or passwor is wrong");
+      toast_message();  
+    } elseif(isset($row) && isset($email)) {
+      $_SESSION['username'] = $email;
+      set_message("Welcome back " . $email);
+      header("Location: index.php");
+      exit();
+    }
   }
 
  ?>
@@ -39,13 +49,7 @@
 
 </div>
     <h1 class="text-center">Sign In</h1>
-    <?php if(isset($row) && ($row['email'] === null || $row['email'] === "")): ?>
-      <!-- <h2 class="text-center bg-warning">Your email or passwor is wrong</h2> -->
-      <?php set_message("Your email or passwor is wrong"); ?>
-      <?php toast_message(); ?>
-    <?php elseif(isset($row) && isset($email)): ?>
-      <?php $_SESSION['username'] = $email; set_message("Login successful"); header("Location: index.php");?>
-    <?php endif ?>
+
       <?php toast_message(); ?>
     <form class="div_center" action="" method="post" enctype="multipart/form-data">
 

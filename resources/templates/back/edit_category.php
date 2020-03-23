@@ -4,14 +4,26 @@
 <?php 
 
 if(isset($_GET['id'])){
-    $query = query("SELECT * FROM categories WHERE cat_id= " . escape_string($_GET['id']) . " ");
-    confirm($query);
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $query = "SELECT * FROM categories WHERE id= :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    $statement->execute();
+    $row = $statement->fetch();
 
-    while($row = fetch_array($query)){
-        $cat_id     = escape_string($row['cat_id']);
-        $cat_title  = escape_string($row['cat_title']);
+    if(isset($_POST['update_category'])){
 
-        update_category();
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        $query_update = "UPDATE categories SET title = :title
+                            WHERE id = :id";
+        $statement_update = $db->prepare($query_update);
+        $statement_update->bindValue(':title', $title);
+        $statement_update->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement_update->execute();
+        
+        set_message("Category has been Updated");
+        redirect("index.php?categories");
     }
 }
 
@@ -21,41 +33,20 @@ if(isset($_GET['id'])){
   Edit Category
 </h1>
 
-<div class="col-md-4">
-
-    <h3 class="bg-danger"><?php display_message(); ?></h3>
-    
-    <form action="" method="post">
-    
-        <div class="form-group">
-            <label for="category-title">Title</label>
-            <input type="text" name="cat_title" class="form-control">
-        </div>
-
-        <div class="form-group">
-            
-            <input type="submit" name="update_category" class="btn btn-primary" value="Edit Category">
-        </div>      
-
-    </form>
-
-</div>
 
 
-<div class="col-md-8">
+<div class="col-md-2">
 
     <table class="table">
         <thead>
             <tr>
                 <th>id</th>
-                <th>Title</th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <th><?php echo $cat_id; ?></th>
-                <th><?php echo $cat_title; ?></th>
+                <th><?= $row['id']; ?></th>
             </tr>
         </tbody>
 
@@ -63,4 +54,20 @@ if(isset($_GET['id'])){
 
 </div>
 
+<div class="col-md-4">
+
+    <form action="#" method="post">
+        
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="<?= $row['title'] ?>" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <input type="submit" name="update_category" class="btn btn-primary" value="Edit Category">
+        </div>      
+
+    </form>
+
+</div>
 

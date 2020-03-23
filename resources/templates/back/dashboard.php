@@ -161,7 +161,7 @@
     <div class="col-lg-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Transactions Panel</h3>
+                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Orders Panel</h3>
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -191,7 +191,7 @@
                     </table>
                 </div>
                 <div class="text-right">
-                    <a href="index.php?orders">View All Transactions <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="index.php?orders">View All Orders <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>

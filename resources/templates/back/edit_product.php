@@ -3,24 +3,109 @@
 
 <?php 
 
-    if(isset($_GET['id'])){
-        $query = query("SELECT * FROM products WHERE product_id = " . escape_string($_GET['id']) . " ");
-        confirm($query);
+set_message("Product has been Updated");
 
-        while($row = fetch_array($query)){
-            $product_title          = escape_string($row['product_title']);
-            $product_category_id    = escape_string($row['product_category_id']);
-            $product_price          = escape_string($row['product_price']);
-            $product_desc           = escape_string($row['product_desc']);
-            $product_short_desc     = escape_string($row['product_short_desc']);
-            $product_in_stock       = escape_string($row['product_in_stock']);
-            $product_image          = escape_string($row['product_image']);
 
-            update_product();
-        }
-    }
+if(isset($_GET['id'])){
+  $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+  $query = "SELECT * FROM products WHERE id = :id";
+  $statement = $db->prepare($query);
+  $statement->bindValue(':id', $id, PDO::PARAM_INT);
+  $statement->execute();
+  $rows = $statement->fetchAll();
 
- ?>
+  foreach($rows as $row) {
+    $title = $row['title'];
+    $cat_id = $row['cat_id'];
+    $price = $row['price'];
+    $description = $row['description'];
+    $short_description = $row['short_description'];
+    $in_stock = $row['in_stock'];
+    $image = $row['image'];
+
+    $category_query = "SELECT * FROM categories WHERE id = $cat_id";
+    $statement_cat = $db->prepare($category_query);
+    $statement_cat->execute();
+    $cat = $statement_cat->fetch();
+
+    $query_all_categories = "SELECT * FROM categories";
+    $statement_all_categories = $db->prepare($query_all_categories);
+    $statement_all_categories->execute();
+    $categories = $statement_all_categories->fetchAll();
+  }
+}
+
+// When user clicks update
+if(isset($_POST['update'])){
+
+  $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $cat_id = filter_input(INPUT_POST, 'cat_id', FILTER_SANITIZE_NUMBER_INT);
+  $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+  $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $short_description = filter_input(INPUT_POST, 'short_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $in_stock = filter_input(INPUT_POST, 'in_stock', FILTER_SANITIZE_NUMBER_INT);
+
+  $image_upload_detected = isset($_FILES['image']) && ($_FILES['image']['error'] === 0);
+
+  // If the user uploaded new image file
+  if ($image_upload_detected) {
+    $image_filename = $_FILES['image']['name'];
+    $temporary_image_path = $_FILES['image']['tmp_name'];
+    $new_image_path = file_upload_path($image_filename);
+    if (file_is_an_image($temporary_image_path, $new_image_path)) {
+      move_uploaded_file($temporary_image_path, $new_image_path);
+
+      $query_update = "UPDATE products SET title = :title
+                                          , cat_id = :cat_id
+                                          , price = :price
+                                          , in_stock = :in_stock
+                                          , description = :description
+                                          , short_description = :short_description
+                                          , image = :image 
+                                   WHERE id = :id";
+      $statement_update = $db->prepare($query_update);
+      $bind_values = ['title' => $title
+                    , 'cat_id' => $cat_id
+                    , 'price' => $price
+                    , 'in_stock' => $in_stock
+                    , 'description' => $description
+                    , 'short_description' => $short_description
+                    , 'image' => $image_filename
+                    , 'id' => $id ];
+      $statement_update->execute($bind_values);
+    } 
+    // If the user did not upload new image file
+  } else {
+
+    $query_update_without_image = "UPDATE products SET title = :title
+                                                      , cat_id = :cat_id
+                                                      , price = :price
+                                                      , in_stock = :in_stock
+                                                      , description = :description
+                                                      , short_description = :short_description
+                                                      , id = :id
+                                 WHERE id = :id";
+    $statement_update = $db->prepare($query_update_without_image);
+    $bind_values_without_image = ['title' => $title
+                                  , 'cat_id' => $cat_id
+                                  , 'price' => $price
+                                  , 'in_stock' => $in_stock
+                                  , 'description' => $description
+                                  , 'short_description' => $short_description
+                                  , 'id' => $id ];
+    $statement_update->execute($bind_values_without_image);
+    
+  }
+
+  set_message("Product has been Updated");
+  redirect("index.php?products");
+  exit();
+
+}
+
+
+
+?>
 
 
 
@@ -45,29 +130,26 @@
 
 <div class="form-group">
     <label for="product-title">Product Title </label>
-        <input type="text" name="product_title" class="form-control" value="<?php echo $product_title; ?>">
+        <input type="text" name="title" class="form-control" value="<?= $title; ?>">
        
     </div>
 
-
     <div class="form-group">
            <label for="product-title">Product Description</label>
-      <textarea name="product_desc" id="" cols="30" rows="10" class="form-control"><?php echo $product_desc; ?></textarea>
+      <textarea name="description" id="" cols="30" rows="10" class="form-control"><?= $description ?></textarea>
     </div>
-
-
 
     <div class="form-group row">
 
       <div class="col-xs-3">
         <label for="product-price">Product Price</label>
-        <input type="number" name="product_price" class="form-control" size="60" value="<?php echo $product_price; ?>">
+        <input type="number" step="0.01" name="price" class="form-control" size="60" value="<?= $price ?>">
       </div>
     </div>
 
     <div class="form-group">
            <label for="product-title">Product Short Description</label>
-      <textarea name="product_short_desc" id="" cols="30" rows="3" class="form-control"><?php echo $product_short_desc; ?></textarea>
+      <textarea name="short_description" id="" cols="30" rows="3" class="form-control"><?= $short_description ?></textarea>
     </div>
 
 
@@ -81,7 +163,7 @@
 
      
      <div class="form-group">
-       <input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft">
+       <!-- <input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft"> -->
         <input type="submit" name="update" class="btn btn-primary btn-lg" value="Update">
     </div>
 
@@ -90,10 +172,14 @@
 
     <div class="form-group">
          <label for="product-title">Product Category</label>
-          <hr>
-        <select name="product_category_id" id="" class="form-control">
-            <option value="<?php echo $product_category_id; ?>"><?php echo show_product_category_title($product_category_id); ?></option>
-           <?php show_categories_add_product(); ?>
+        <select name="cat_id" id="" class="form-control">
+           
+          <?php foreach($categories as $category): ?>
+
+            <option value="<?= $category['id'] ?>" <?=$cat_id == $category['id'] ? ' selected="selected"' : '';?>><?= $category['title'] ?></option>
+
+          <?php endforeach ?>
+
         </select>
 
 
@@ -113,7 +199,7 @@
 
     <div class="form-group">
       <label for="product-title">Product Quantity</label>
-         <input class="form-control" type="number" name="product_in_stock" value="<?php echo $product_in_stock; ?>">
+         <input class="form-control" type="number" name="in_stock" value="<?= $in_stock ?>">
     </div>
 
 
@@ -129,8 +215,8 @@
     <!-- Product Image -->
     <div class="form-group">
         <label for="product-title">Product Image</label> <br>
-            <img width='200' src="../resources/uploads/<?php echo $product_image; ?>" alt="">
-        <input type="file" name="file">
+            <img width='200' src="../resources/uploads/<?= $image ?>" alt="<?= $image ?>">
+        <input type="file" name="image">
     </div>
 
 

@@ -8,9 +8,24 @@ if(!isset($_SESSION['username'])){
     header("Location: ./../index.php");
 }
 
+if(isset($_SESSION['message'])) {
+    echo '<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>';
+    echo '<link href="../node_modules/toastr/build/toastr.css" rel="stylesheet"/>';
+    echo '<script src="../node_modules/toastr/toastr.js"></script>';
+    echo '<script type="text/javascript">', 'let message =', json_encode($_SESSION['message']), ';', '</script>';
+    echo '<script type="text/javascript">', 'toastr.options.closeButton = true;', 'toastr.info(message);','</script>';
+    unset($_SESSION['message']);
+}
+
  ?>
 
         <div id="page-wrapper">
+
+            <?php 
+
+
+
+             ?>
 
             <div class="container-fluid">
 

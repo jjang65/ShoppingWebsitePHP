@@ -6,7 +6,7 @@
 
     // if we can get transaction Identifier('tx'),
     if(isset($_GET['tx'])){
-
+        $email = $_SESSION['username'];
         $amount = filter_input(INPUT_GET, 'amt', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $transfer_fee = $_SESSION['transfer_fee'];
         $currency = filter_input(INPUT_GET, 'cc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -16,10 +16,10 @@
         if(isset($_SESSION['firstname'])){
 
             // Insert data into Database in orders table
-            $query = "INSERT INTO orders (amount, transfer_fee, currency, transaction, status, firstname, lastname, address, address2, towncity, province, postal, phone) 
-                            VALUES (:amount, :transfer_fee, :currency, :transaction, :status, :firstname, :lastname, :address, :address2, :towncity, :province, :postal, :phone)";
+            $query = "INSERT INTO orders (email, amount, transfer_fee, currency, transaction, status, firstname, lastname, address, address2, towncity, province, postal, phone) 
+                            VALUES (:email, :amount, :transfer_fee, :currency, :transaction, :status, :firstname, :lastname, :address, :address2, :towncity, :province, :postal, :phone)";
             $statement = $db->prepare($query);
-            $bind_values = ['amount' => $amount, 'transfer_fee' => $transfer_fee, 'currency' => $currency, 'transaction' => $transaction, 'status' => $status, 'firstname' => $_SESSION['firstname'], 'lastname' => $_SESSION['lastname'], 'address' => $_SESSION['address'], 'address2' => $_SESSION['address2'], 'towncity' => $_SESSION['towncity'], 'province' => $_SESSION['province'], 'postal' => $_SESSION['postal'], 'phone' => $_SESSION['phone']];
+            $bind_values = ['email' => $email, 'amount' => $amount, 'transfer_fee' => $transfer_fee, 'currency' => $currency, 'transaction' => $transaction, 'status' => $status, 'firstname' => $_SESSION['firstname'], 'lastname' => $_SESSION['lastname'], 'address' => $_SESSION['address'], 'address2' => $_SESSION['address2'], 'towncity' => $_SESSION['towncity'], 'province' => $_SESSION['province'], 'postal' => $_SESSION['postal'], 'phone' => $_SESSION['phone']];
             $statement->execute($bind_values);
 
         }else{

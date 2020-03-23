@@ -63,48 +63,55 @@ if(!isset($_SESSION['username'])) {
 else {
 	if(isset($_POST['firstname']) && $_SESSION['item_total'] > 0 && $_SESSION['item_quantity'] > 0){
 
-	// store sessions to pass values from Register page to Thank you page
-	$_SESSION['firstname'] = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	$_SESSION['lastname'] = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	$_SESSION['address'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	$_SESSION['address2'] = filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	$_SESSION['towncity'] = filter_input(INPUT_POST, 'towncity', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		// store sessions to pass values from Register page to Thank you page
+		$_SESSION['firstname'] = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$_SESSION['lastname'] = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$_SESSION['address'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$_SESSION['address2'] = filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$_SESSION['towncity'] = filter_input(INPUT_POST, 'towncity', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-	if(!valid_province_choice()) {
-		$error_messages[] = "You must choose valid province.";
-	} else {
-		$_SESSION['province'] = filter_input(INPUT_POST, 'province', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	}
-	
-	if(!valid_postal_input()) {
-		$error_messages[] = "You must input valid postal code.";
-	} else {
-		$_SESSION['postal'] = filter_input(INPUT_POST, 'postal', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	}
-
-	if(!valid_phone_number()) {
-		$error_messages[] = "You must input valid phone number.";
-	} else {
-		$_SESSION['phone']  = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-	}
-
-	$total_message = "";
-	if(isset($error_messages)) {
-		foreach($error_messages as $error_message) {
-			$total_message .= $error_message . "<br>";
+		if(!valid_province_choice()) {
+			$error_messages[] = "You must choose valid province.";
+		} else {
+			$_SESSION['province'] = filter_input(INPUT_POST, 'province', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 		}
-		set_message($total_message);
+		
+		if(!valid_postal_input()) {
+			$error_messages[] = "You must input valid postal code.";
+		} else {
+			$_SESSION['postal'] = filter_input(INPUT_POST, 'postal', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		}
+
+		if(!valid_phone_number()) {
+			$error_messages[] = "You must input valid phone number.";
+		} else {
+			$_SESSION['phone']  = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		}
+
+		$total_message = "";
+		if(isset($error_messages)) {
+			foreach($error_messages as $error_message) {
+				$total_message .= $error_message . "<br>";
+			}
+			set_message($total_message);
+			header("Location: billing_details.php");
+		}
+
+		// set Paypal default values
+	    $item_name = 1;
+	    $item_number = 1;
+	    $amount = 1;
+	    $quantity = 1;
+
+	} elseif(!isset($_SESSION['item_quantity']) || $_SESSION['item_quantity'] < 1) {
+		set_message("Your cart is empty");
+		header("Location: shop.php");
+
+	} elseif($_SESSION['item_quantity'] >= 1 && !isset($_POST['firstname'])) {
+		set_message("Your billing details are not fulfilled");
 		header("Location: billing_details.php");
-	}
-
-	// set Paypal default values
-    $item_name = 1;
-    $item_number = 1;
-    $amount = 1;
-    $quantity = 1;
-
 	} else {
-		set_message("Cart is empty");
+		set_message("Your cart is empty");
 		header("Location: shop.php");
 	}
 }
