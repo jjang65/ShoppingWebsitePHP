@@ -22,11 +22,8 @@ if($_POST['submit']) {
 	$statementForDuplicate->execute();
 	$row = $statementForDuplicate->fetch();
 
-	print_r($row['email']);
-
 	if($row) {
-		echo('Reached if(row)');
-		set_message("Registration failed, There is existing email. Please login.");
+		set_message("Registration failed. <br> This email has been already registered.");
 		header('Location: ../../../public_html/register.php');
 	} else {
 		$query = "INSERT INTO users (email, password) VALUES (:email, :password)";
@@ -43,21 +40,6 @@ if($_POST['submit']) {
 	header('Location: ../../../public_html/register.php');
 }
 
-function sanitize_email() {
-	return filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-}
 
-function valid_email() {
-	return filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-}
-
-function sanitize_password() {
-	return filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-}
-
-function valid_password() {
-	$password_length = strlen(sanitize_password());
-	return $password_length >= 8;
-}
 
  ?>

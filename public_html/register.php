@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    <h3 class="text-center bg-danger"><?php display_message(); ?></h3>
+    <h3 class="text-center bg-danger"><?php toast_message(); ?></h3>
     
 	<section class="ftco-section">
       <div class="container">

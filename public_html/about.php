@@ -16,7 +16,7 @@
 
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
 			<div class="container">
-				<h3 class="text-center bg-warning"><?php display_message(); ?></h3>
+				<h3 class="text-center bg-warning"><?php toast_message(); ?></h3>
 				<div class="row">
 					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/bg_2.jpg);">
 						<!-- <a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center"> -->

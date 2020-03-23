@@ -64,31 +64,21 @@ function file_is_an_image($temporary_path, $new_path) {
 	return $file_extension_is_valid && $mime_type_is_valid;
 }
 
+function sanitize_email() {
+	return filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+}
 
-function send_message(){
-	if(isset($_POST['submit'])){
+function valid_email() {
+	return filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+}
 
-		require_once __DIR__ . DIRECTORY_SEPARATOR . '../vendor/autoload.php';
+function sanitize_password() {
+	return filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+}
 
-		// Create the Transport
-		$transport = (new Swift_SmtpTransport('loalhost', 25))
-		  // ->setUsername('your username')
-		  // ->setPassword('your password')
-		;
-
-		// Create the Mailer using your created Transport
-		$mailer = new Swift_Mailer($transport);
-
-		// Create a message
-		$message = (new Swift_Message('Wonderful Subject'))
-		  ->setFrom(['john@doe.com' => 'John Doe'])
-		  ->setTo(['jjy2zzbai2@gmail.com'=> 'Jinyoung'])
-		  ->setBody('Here is the message itself')
-		  ;
-
-		// Send the message
-		$result = $mailer->send($message);
-	}
+function valid_password() {
+	$password_length = strlen(sanitize_password());
+	return $password_length >= 8;
 }
 
 
