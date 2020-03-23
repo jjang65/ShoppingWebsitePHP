@@ -20,7 +20,14 @@ if(isset($_POST['add_user'])){
                     , 'password' => $password
                     , 'photo' => $image_filename ];
       $statement_update->execute($bind_values);
-    } 
+
+      set_message("New User Added");
+      redirect("index.php?users");
+
+    }  else {
+      set_message("File format should be jpg, jpeg, gif, or png");
+      redirect("index.php?users");
+    }
     // If the user did not upload new image file
   } else {
 
@@ -29,13 +36,13 @@ if(isset($_POST['add_user'])){
     $bind_values_without_image = ['email' => $email
                                 , 'password' => $password ];
     $statement_update->execute($bind_values_without_image);
-  }
 
-  set_message("New User Added");
-  // redirect("index.php?users");
+    set_message("New User Added");
+    redirect("index.php?users");
+  }
 }
 
- ?>
+?>
 
   <h1 class="page-header">
       Add User

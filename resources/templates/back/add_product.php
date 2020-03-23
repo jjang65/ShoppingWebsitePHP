@@ -33,11 +33,20 @@ if(isset($_POST['publish'])){
                     , 'short_description' => $short_description
                     , 'image' => $image_filename ];
       $statement_insert->execute($bind_values);
-    } 
+
+      set_message("Product has been added");
+      redirect("index.php?products");
+      exit();
+
+
+    } else {
+      set_message("File format should be jpg, jpeg, gif, or png");
+      redirect("index.php?products");
+    }
     // If the user did not upload new image file
   } else {
     echo "else executed";
-    $query_insert = "INSERT INTO products (title, cat_id, price, in_stock, description, short_description, image) VALUES (:title, :cat_id, :price, :in_stock, :description, :short_description)";
+    $query_insert = "INSERT INTO products (title, cat_id, price, in_stock, description, short_description) VALUES (:title, :cat_id, :price, :in_stock, :description, :short_description)";
     $statement_insert = $db->prepare($query_insert);
     $bind_values_without_image = ['title' => $title
                                   , 'cat_id' => $cat_id
@@ -46,12 +55,12 @@ if(isset($_POST['publish'])){
                                   , 'description' => $description
                                   , 'short_description' => $short_description ];
     $statement_insert->execute($bind_values_without_image);
+
+    set_message("Product has been added");
+    redirect("index.php?products");
+    exit();
     
   }
-
-  set_message("Product has been added");
-  redirect("index.php?products");
-  exit();
 }
 
 $query = "SELECT * FROM categories";

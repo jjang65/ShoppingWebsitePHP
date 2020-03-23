@@ -155,7 +155,11 @@ $item_quantity = 0;
                                                         <td class="product-remove mytd"><a href="cart.php?add=<?= $quote['id'] ?>"><span class="ion-md-add"></span></a></td>
                                                         <td class="product-remove mytd"><a href="cart.php?delete=<?= $quote['id'] ?>"><span class="ion-md-close"></span></a></td>
 
-                                                        <td class="image-prod"><img width="100" src="resources/uploads/<?= $quote['image'] ?>" alt="image"/></td>
+                                                        <td class="image-prod">
+                                                            <?php if(isset($quote['image'])): ?>
+                                                            <img width="100" src="resources/uploads/<?= $quote['image'] ?>" alt="image"/>
+                                                            <?php endif ?>
+                                                        </td>
 
                                                         <td class="product-name">
                                                             <h3><?= $quote['title'] ?></h3>

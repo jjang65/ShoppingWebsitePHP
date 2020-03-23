@@ -187,7 +187,11 @@ else {
 												<?php $sub = $quote['price'] * $value; ?>
 												
 												<tr class="text-center">
-													<td class="image-prod"><img width="100" src="resources/uploads/<?= $quote['image'] ?>" alt="image"/></td>
+													<td class="image-prod">
+														<?php if(isset($quote['image'])): ?>
+															<img width="100" src="resources/uploads/<?= $quote['image'] ?>" alt="image"/>
+														<?php endif ?>
+													</td>
 
 													<td class="product-name">
 														<h3><?= $quote['title'] ?></h3>

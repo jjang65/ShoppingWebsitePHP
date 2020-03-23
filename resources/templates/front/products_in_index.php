@@ -26,7 +26,11 @@
 					<?php foreach($quotes as $quote): ?>
 					<div class="col-sm col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
-							<a href="product-single.php?id=<?= $quote['id'] ?>" class="img-prod"><img class="img-fluid" src="resources/uploads/<?= $quote['image'] ?>" alt="Colorlib Template"></a>
+							<a href="product-single.php?id=<?= $quote['id'] ?>" class="img-prod">
+								<?php if(isset($quote['image'])): ?>
+									<img class="img-fluid" src="resources/uploads/<?= $quote['image'] ?>" alt="Colorlib Template">
+								<?php endif ?>
+							</a>
 							<div class="text py-3 px-3">
 								<h3><a href="product-single.php?id=<?= $quote['id'] ?>"><?= $quote['title'] ?></a></h3>
 								<div class="d-flex">

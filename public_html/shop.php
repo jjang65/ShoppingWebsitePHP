@@ -20,24 +20,30 @@
           </div>
         </div>
       </div>
+
     </div>
+
 		
 		<section class="ftco-section bg-light">
     	<div class="container-fluid">
             <div class="row">
+
                 
             <!-- Categories -->
             <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
             <div class="row col-md-9">
+
               <?php toast_message(); ?>
 
               <?php foreach($quotes_prods as $quote): ?>
 
                 <div class="col-sm col-md-6 col-lg-3 ftco-animate">
                   <div class="product">
-                    <a href="product-single.php?id=<?= $quote['id'] ?>" class="img-prod"><img class="img-fluid" src="resources/uploads/<?= $quote['image'] ?>" alt="Colorlib Template">
-                      
+                    <a href="product-single.php?id=<?= $quote['id'] ?>" class="img-prod">
+                      <?php if(isset($quote['image'])): ?>
+                        <img class="img-fluid" src="resources/uploads/<?= $quote['image'] ?>" alt="Colorlib Template">
+                      <?php endif ?>
                     </a>
                     <div class="text py-3 px-3">
                       <h3><a href="product-single.php?id=<?= $quote['id'] ?>"><?= $quote['title'] ?></a></h3>
@@ -54,7 +60,7 @@
                   </div>
                 </div>
 
-                <?php endforeach ?>
+              <?php endforeach ?>
 
             </div>
             

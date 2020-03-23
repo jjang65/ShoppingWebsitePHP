@@ -46,11 +46,17 @@ $rows = $statement->fetchAll();
                                     <tr>
                                         <td><?= $row['id'] ?></td>
                                         <td><?= $row['email'] ?></td>
+
+                                        
                                         <td><a href="index.php?edit_user&id=<?= $row['id'] ?>">
-                                            <img width='100' src="../resources/uploads/<?= isset($row['photo']) ? $row['photo'] : null ?>" alt="User Image">
-                                            </a></td>
+                                            <?php if(isset($row['photo'])): ?>
+                                            <img width='100' src="../resources/uploads/<?= $row['photo']?>" alt="User Image">
+                                            <?php endif ?>
+                                        </a></td>
+                                        
+
                                         <td><a class="btn btn-info" href="index.php?edit_user&id=<?= $row['id'] ?>"><span class="glyphicon glyphicon-edit"></span></a></td>
-                                        <td><a class="btn btn-danger" href="index.php?delete_user&id=<?= $row['id'] ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                        <td><a class="btn btn-danger" href="index.php?delete_user_id=<?= $row['id'] ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
                                     </tr>
                                     <?php endforeach ?>
 

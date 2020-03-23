@@ -53,6 +53,7 @@ if(isset($_POST['update'])){
     $temporary_image_path = $_FILES['image']['tmp_name'];
     $new_image_path = file_upload_path($image_filename);
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
+
       move_uploaded_file($temporary_image_path, $new_image_path);
 
       $query_update = "UPDATE products SET title = :title
@@ -73,7 +74,15 @@ if(isset($_POST['update'])){
                     , 'image' => $image_filename
                     , 'id' => $id ];
       $statement_update->execute($bind_values);
-    } 
+
+      set_message("Product has been Updated");
+      redirect("index.php?products");
+      exit();
+    
+    } else {
+      set_message("File format should be jpg, jpeg, gif, or png");
+      redirect("index.php?products");
+    }
     // If the user did not upload new image file
   } else {
 
@@ -181,9 +190,7 @@ if(isset($_POST['update'])){
           <?php endforeach ?>
 
         </select>
-
-
-</div>
+    </div>
 
 
     <!-- Product Brands-->
@@ -215,7 +222,9 @@ if(isset($_POST['update'])){
     <!-- Product Image -->
     <div class="form-group">
         <label for="product-title">Product Image</label> <br>
+          <?php if(isset($row['photo'])): ?>
             <img width='200' src="../resources/uploads/<?= $image ?>" alt="<?= $image ?>">
+          <?php endif ?>
         <input type="file" name="image">
     </div>
 

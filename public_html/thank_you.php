@@ -124,7 +124,11 @@
                          ?>
                         
                         <tr class="text-center">
-                            <td class="image-prod"><img width="100" src="resources/uploads/<?= $row['image'] ?>" alt="image"/></td>
+                            <td class="image-prod">
+                                <?php if(isset($row['image'])): ?>
+                                    <img width="100" src="resources/uploads/<?= $row['image'] ?>" alt="image"/>
+                                <?php endif ?>
+                            </td>
                             <td class="product-name">
                                 <h3><?= $row['title'] ?></h3>
                                 <p><?= $row['short_description'] ?></p>

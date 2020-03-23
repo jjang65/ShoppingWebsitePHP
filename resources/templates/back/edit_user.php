@@ -70,7 +70,12 @@ if(isset($_POST['update_user'])){
 
                       <div class="col-md-4 user_image_box">
                           
-                    <a href="#" data-toggle="modal" data-target="#photo-library"><img class="img-responsive" src="../resources/uploads/<?= $user_photo ?>" alt="photo"></a>
+                    <a href="#" data-toggle="modal" data-target="#photo-library">
+                      <?php if(isset($row['photo'])): ?>
+                        <img class="img-responsive" src="../resources/uploads/<?= $user_photo ?>" alt="photo">
+                      <?php endif ?>
+
+                    </a>
 
                       </div>
 
@@ -106,7 +111,7 @@ if(isset($_POST['update_user'])){
                            <!-- User Photo -->
                             <div class="form-group">
                                 <label for="product-title">User Photo</label> <br>
-                                    <img width='200' src="../resources/uploads/<?= $photo ?>" alt="photo">
+
                                 <input type="file" name="image">
                             </div>
 

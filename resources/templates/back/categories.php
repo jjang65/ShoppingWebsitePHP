@@ -69,7 +69,7 @@ $rows = $statement_cats->fetchAll();
             <td><?= $row['id'] ?></td>
             <td><a href="index.php?edit_category&id=<?= $row['id'] ?>"><?= $row['title'] ?></a></td>
             <td><a class="btn btn-info" href="index.php?edit_category&id=<?= $row['id'] ?>"><span class="glyphicon glyphicon-edit"></span></a></td>
-            <td><a class="btn btn-danger" href="index.php?delete_category&id=<?= $row['id'] ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a class="btn btn-danger" href="index.php?delete_category_id=<?= $row['id'] ?>"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
     <?php endforeach ?>
 
