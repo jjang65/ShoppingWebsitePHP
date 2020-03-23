@@ -12,37 +12,44 @@ require '../vendor/autoload.php';
 
 if(isset($_POST['submit'])){
 
+  $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $subject = filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
   // Instantiation and passing `true` enables exceptions
   $mail = new PHPMailer(true);
 
   try {
     //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                   // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+    $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
     $mail->Username   = EMAIL;                                  // SMTP username
-    $mail->Password   = PASSWORD;                              // SMTP password
+    $mail->Password   = PASSWORD;                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
     //Recipients
-    $mail->setFrom('jjy2zzbai2@gmail.com', 'Mailer');
-    $mail->AddReplyTo('jjy2zzbai2@gmail.com', 'Joe User');     // Add a recipient
-    $mail->addAddress('jjsung33@naver.com');               // Name is optional
+    $mail->setFrom(EMAIL, $name . ' from Midist Shopping Site');
+    $mail->addAddress(EMAIL, 'Midist Shopping');                           // Name is optional
+    $mail->addReplyTo($email, $name);
 
     // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->isHTML(true);                                        // Set email format to HTML
+    $mail->Subject = $subject;
+    $mail->Body    = $message;
+    $mail->AltBody = $message;
 
     $mail->send();
-    echo 'Message has been sent';
+    set_message('Message has been sent');
+
   } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    set_message("Failed to send email");
+    header("Location: contact.php");
+    // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
   }
-  
 }
 
 ?>
@@ -64,12 +71,10 @@ if(isset($_POST['submit'])){
 
     <section class="ftco-section contact-section bg-light">
       <div class="container">
-        <h3 class="text-center bg-warning"><?php display_message(); ?></h3>
+        <h3 class="text-center bg-warning"><?php toast_message(); ?></h3>
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
             <form class="bg-white p-5 contact-form" method="post">
-
-              <?php send_message(); ?>
 
               <div class="form-group">
                 <input name="name" type="text" class="form-control" placeholder="Your Name">
