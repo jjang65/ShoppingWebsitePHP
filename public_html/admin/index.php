@@ -104,6 +104,10 @@ if(isset($_SESSION['message'])) {
                     include(TEMPLATE_BACK . DS . "delete_user.php");
                 }
 
+                if(isset($_GET['subscriptions'])){
+                    include(TEMPLATE_BACK . DS . "subscriptions.php");
+                }
+
             ?>
 
             </div>

@@ -25,6 +25,9 @@
         <!-- <li>
             <a href="index.php?add_user"><i class="fa fa-fw fa-wrench"></i>Add User</a>
         </li> -->
+        <li>
+            <a href="index.php?subscriptions"><i class="fa fa-fw fa-desktop"></i> Subscriptions</a>
+        </li>
     </ul>
 </div>
 <!-- /.navbar-collapse -->
