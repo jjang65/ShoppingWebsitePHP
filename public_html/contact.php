@@ -8,7 +8,8 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
-require '../vendor/autoload.php';
+// In config.php, autoload has been already required.
+// require '../vendor/autoload.php';
 
 if(isset($_POST['submit'])){
 

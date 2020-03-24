@@ -1,6 +1,8 @@
 <?php require_once("../../resources/config.php"); ?>
 <?php 
 
+use \Gumlet\ImageResize;
+
 if(isset($_POST['publish'])){
 
   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -9,8 +11,6 @@ if(isset($_POST['publish'])){
   $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $short_description = filter_input(INPUT_POST, 'short_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $in_stock = filter_input(INPUT_POST, 'in_stock', FILTER_SANITIZE_NUMBER_INT);
-
-  echo 'cat_id: ' . $cat_id;
 
   $image_upload_detected = isset($_FILES['image']) && ($_FILES['image']['error'] === 0);
 
@@ -22,6 +22,12 @@ if(isset($_POST['publish'])){
     $new_image_path = file_upload_path($image_filename);
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
       move_uploaded_file($temporary_image_path, $new_image_path);
+
+      // Resize image
+      $image = new ImageResize($new_image_path);
+      $image->resizeToWidth(450);
+      $image->save($new_image_path . '_medium.ext');
+      $image_filename = $image_filename . '_medium.ext';
 
       $query_insert = "INSERT INTO products (title, cat_id, price, in_stock, description, short_description, image) VALUES (:title, :cat_id, :price, :in_stock, :description, :short_description, :image)";
       $statement_insert = $db->prepare($query_insert);
