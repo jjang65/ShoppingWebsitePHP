@@ -2,6 +2,8 @@
 
 <?php 
 
+use \Gumlet\ImageResize;
+
 if(isset($_GET['id'])){
   $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $query = "SELECT * FROM users WHERE id = :id";
@@ -29,6 +31,12 @@ if(isset($_POST['update_user'])){
     $new_image_path = file_upload_path($image_filename);
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
       move_uploaded_file($temporary_image_path, $new_image_path);
+
+      // Resize image
+      $image = new ImageResize($new_image_path);
+      $image->resizeToWidth(450);
+      $image->save($new_image_path . '_medium.ext');
+      $image_filename = $image_filename . '_medium.ext';
 
       $query_update = "UPDATE users SET email = :email
                                           , password = :password

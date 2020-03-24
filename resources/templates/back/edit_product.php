@@ -3,6 +3,8 @@
 
 <?php 
 
+use \Gumlet\ImageResize;
+
 set_message("Product has been Updated");
 
 
@@ -55,6 +57,12 @@ if(isset($_POST['update'])){
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
 
       move_uploaded_file($temporary_image_path, $new_image_path);
+
+      // Resize image
+      $image = new ImageResize($new_image_path);
+      $image->resizeToWidth(450);
+      $image->save($new_image_path . '_medium.ext');
+      $image_filename = $image_filename . '_medium.ext';
 
       $query_update = "UPDATE products SET title = :title
                                           , cat_id = :cat_id
