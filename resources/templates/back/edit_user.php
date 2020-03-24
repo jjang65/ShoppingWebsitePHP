@@ -29,6 +29,8 @@ if(isset($_POST['update_user'])){
     $image_filename = $_FILES['image']['name'];
     $temporary_image_path = $_FILES['image']['tmp_name'];
     $new_image_path = file_upload_path($image_filename);
+
+    // If file is an image file
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
       move_uploaded_file($temporary_image_path, $new_image_path);
 
@@ -48,7 +50,10 @@ if(isset($_POST['update_user'])){
                     , 'photo' => $image_filename
                     , 'id' => $id ];
       $statement_update->execute($bind_values);
-    } 
+    } else {
+      set_message("File format should be jpg, jpeg, gif, or png");
+      redirect("index.php?users");
+    }
     // If the user did not upload new image file
   } else {
 
@@ -60,11 +65,10 @@ if(isset($_POST['update_user'])){
                                 , 'password' => $password
                                 , 'id' => $id ];
     $statement_update->execute($bind_values_without_image);
-    
-  }
 
-  set_message("User has been Updated");
-  redirect("index.php?users");
+    set_message("User has been Updated");
+    redirect("index.php?users");
+  }
 }
 
 
@@ -125,8 +129,7 @@ if(isset($_POST['update_user'])){
 
                             <div class="form-group">
 
-                            <a id="user-id" class="btn btn-danger" href="index.php?delete_user&id=<?= $id ?>">Delete</a>
-
+                              <a class="btn btn-danger" href="index.php?page=users&delete_image_id=<?= $row['id'] ?>&filename=<?= $row['photo'] ?>"></span> Delete Image</a>
 
                             <!-- Update Button -->
                             <input type="submit" name="update_user" class="btn btn-primary pull-right" value="Update" >

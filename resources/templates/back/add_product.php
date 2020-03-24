@@ -16,10 +16,11 @@ if(isset($_POST['publish'])){
 
   // If the user uploaded new image file
   if ($image_upload_detected) {
-    echo "if statement executed";
     $image_filename = $_FILES['image']['name'];
     $temporary_image_path = $_FILES['image']['tmp_name'];
     $new_image_path = file_upload_path($image_filename);
+
+    // If file is an image file
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
       move_uploaded_file($temporary_image_path, $new_image_path);
 
@@ -177,7 +178,6 @@ $rows = $statement->fetchAll();
     <div class="form-group">
         <label for="product-title">Product Image</label>
         <input type="file" name="image">
-      
     </div>
 
 

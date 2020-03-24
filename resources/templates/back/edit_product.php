@@ -35,6 +35,9 @@ if(isset($_GET['id'])){
     $statement_all_categories->execute();
     $categories = $statement_all_categories->fetchAll();
   }
+} else {
+  set_message("Invalid page");
+  redirect("index.php?products");
 }
 
 // When user clicks update
@@ -54,8 +57,9 @@ if(isset($_POST['update'])){
     $image_filename = $_FILES['image']['name'];
     $temporary_image_path = $_FILES['image']['tmp_name'];
     $new_image_path = file_upload_path($image_filename);
-    if (file_is_an_image($temporary_image_path, $new_image_path)) {
 
+    // If file is an image file
+    if (file_is_an_image($temporary_image_path, $new_image_path)) {
       move_uploaded_file($temporary_image_path, $new_image_path);
 
       // Resize image
@@ -111,16 +115,11 @@ if(isset($_POST['update'])){
                                   , 'short_description' => $short_description
                                   , 'id' => $id ];
     $statement_update->execute($bind_values_without_image);
-    
+    set_message("Product has been Updated");
+    redirect("index.php?products");
+    exit();
   }
-
-  set_message("Product has been Updated");
-  redirect("index.php?products");
-  exit();
-
 }
-
-
 
 ?>
 
@@ -229,8 +228,10 @@ if(isset($_POST['update'])){
 
     <!-- Product Image -->
     <div class="form-group">
-        <label for="product-title">Product Image</label> <br>
-          <?php if(isset($row['photo'])): ?>
+        <label for="product-title">Product Image</label>
+          <?php if(isset($row['image'])): ?>
+            <a class="btn btn-danger" href="index.php?page=products&delete_image_id=<?= $row['id'] ?>&filename=<?= $image ?>"></span> Delete Image</a>
+            <br>
             <img width='200' src="../resources/uploads/<?= $image ?>" alt="<?= $image ?>">
           <?php endif ?>
         <input type="file" name="image">

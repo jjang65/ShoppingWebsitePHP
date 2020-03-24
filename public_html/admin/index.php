@@ -116,6 +116,10 @@ if(isset($_SESSION['message'])) {
                     include(TEMPLATE_BACK . DS . "delete_subscription.php");
                 }
 
+                if(isset($_GET['delete_image_id'])){
+                    include(TEMPLATE_BACK . DS . "delete_image.php");
+                }
+
             ?>
 
             </div>
