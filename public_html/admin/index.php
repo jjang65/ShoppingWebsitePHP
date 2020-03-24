@@ -108,6 +108,14 @@ if(isset($_SESSION['message'])) {
                     include(TEMPLATE_BACK . DS . "subscriptions.php");
                 }
 
+                if(isset($_GET['edit_subscription'])){
+                    include(TEMPLATE_BACK . DS . "edit_subscription.php");
+                }
+
+                if(isset($_GET['delete_subscription_id'])){
+                    include(TEMPLATE_BACK . DS . "delete_subscription.php");
+                }
+
             ?>
 
             </div>
