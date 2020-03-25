@@ -120,6 +120,10 @@ if(isset($_SESSION['message'])) {
                     include(TEMPLATE_BACK . DS . "delete_image.php");
                 }
 
+                if(isset($_GET['send_email'])){
+                    include(TEMPLATE_BACK . DS . "send_email.php");
+                }
+
             ?>
 
             </div>

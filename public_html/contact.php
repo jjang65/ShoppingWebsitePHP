@@ -34,7 +34,7 @@ if(isset($_POST['submit'])){
 
     //Recipients
     $mail->setFrom(EMAIL, $name . ' from Midist Shopping Site');
-    $mail->addAddress(EMAIL, 'Midist Shopping');                           // Name is optional
+    $mail->addAddress(EMAIL, 'Midist Shopping');                // Name is optional
     $mail->addReplyTo($email, $name);
 
     // Content

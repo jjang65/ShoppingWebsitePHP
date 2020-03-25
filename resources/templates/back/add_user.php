@@ -13,6 +13,8 @@ if(isset($_POST['add_user'])){
     $image_filename = $_FILES['image']['name'];
     $temporary_image_path = $_FILES['image']['tmp_name'];
     $new_image_path = file_upload_path($image_filename);
+
+    // If file is an image file
     if (file_is_an_image($temporary_image_path, $new_image_path)) {
       move_uploaded_file($temporary_image_path, $new_image_path);
 
