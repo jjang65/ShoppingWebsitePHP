@@ -7,23 +7,44 @@
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $query = "SELECT * FROM users WHERE email = :email AND password = :password";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':email', $email);
-    $statement->bindValue(':password', $password);
-    $statement->execute();
-    $row = $statement->fetch();
+    $query_for_email = "SELECT * FROM users WHERE email = :email";
+    $statement_email = $db->prepare($query_for_email);
+    $statement_email->bindValue(':email', $email);
+    $statement_email->execute();
 
-    if(isset($row) && ($row['email'] === null || $row['email'] === "")) {
+    if($statement_email->rowCount() > 0) {
+      $row = $statement_email->fetch();
+      if(password_verify($password, $row['password'])) {
+        $_SESSION['username'] = $email;
+        set_message("Welcome back " . $email);
+        header("Location: index.php");
+        exit();
+      } else {
+        set_message("Your email or passwor is wrong");
+      }
+    } else {
       set_message("Your email or passwor is wrong");
-      toast_message();  
-    } elseif(isset($row) && isset($email)) {
-      $_SESSION['username'] = $email;
-      set_message("Welcome back " . $email);
-      header("Location: index.php");
-      exit();
     }
-  }
+
+
+
+    // $query = "SELECT * FROM users WHERE email = :email AND password = :password";
+    // $statement = $db->prepare($query);
+    // $statement->bindValue(':email', $email);
+    // $statement->bindValue(':password', $password);
+    // $statement->execute();
+    // $row = $statement->fetch();
+
+    // if(isset($row) && ($row['email'] === null || $row['email'] === "")) {
+    //   set_message("Your email or passwor is wrong");
+    //   toast_message();  
+    // } elseif(isset($row) && isset($email)) {
+    //   $_SESSION['username'] = $email;
+    //   set_message("Welcome back " . $email);
+    //   header("Location: index.php");
+    //   exit();
+    // }
+  } 
 
  ?>
 
