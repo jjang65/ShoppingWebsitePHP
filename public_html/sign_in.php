@@ -25,25 +25,6 @@
     } else {
       set_message("Your email or passwor is wrong");
     }
-
-
-
-    // $query = "SELECT * FROM users WHERE email = :email AND password = :password";
-    // $statement = $db->prepare($query);
-    // $statement->bindValue(':email', $email);
-    // $statement->bindValue(':password', $password);
-    // $statement->execute();
-    // $row = $statement->fetch();
-
-    // if(isset($row) && ($row['email'] === null || $row['email'] === "")) {
-    //   set_message("Your email or passwor is wrong");
-    //   toast_message();  
-    // } elseif(isset($row) && isset($email)) {
-    //   $_SESSION['username'] = $email;
-    //   set_message("Welcome back " . $email);
-    //   header("Location: index.php");
-    //   exit();
-    // }
   } 
 
  ?>

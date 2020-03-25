@@ -8,6 +8,10 @@ if(isset($_POST['email'])){
 
 	if(sanitize_email() == valid_email()) {
 		$email = sanitize_email();
+	} else {
+		set_message("Please input valid email.");
+		header('Location: ../../../public_html/about.php');
+		exit();
 	}
 
 	$queryForDuplicate = "SELECT * FROM subscriptions WHERE email = :email";
