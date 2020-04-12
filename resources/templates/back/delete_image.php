@@ -36,7 +36,19 @@ if(isset($_GET['page']) && isset($_GET['delete_image_id']) && isset($_GET['filen
 function delete_image_file($filename, $page) {
 	if(file_exists(UPLOAD_DIRECTORY . DS . $filename)) {
 
+		// Delete a resized image
 		unlink(UPLOAD_DIRECTORY . DS . $filename);
+
+
+		// Delete an original image
+		$extension = '_medium.ext';
+		$original_image_name = str_replace($extension, '', $filename);
+
+		if(file_exists(UPLOAD_DIRECTORY . DS . $original_image_name)) {
+			unlink(UPLOAD_DIRECTORY . DS . $original_image_name);
+		}
+		
+
 		set_message("Image Deleted");
     	redirect("index.php?" . $page);
     	exit();

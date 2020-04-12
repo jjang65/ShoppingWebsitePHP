@@ -1,7 +1,5 @@
 <?php require_once("../resources/config.php"); ?>
 
-<?php require_once("resources/cart_functions.php"); ?>
-
 <script src="js/formValidateForRegister.js?2" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="css/mysytles.css">
 

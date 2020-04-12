@@ -2,6 +2,7 @@
 
 require_once("connect.php");
 
+
 function debug_to_console( $data ) {
     $output = $data;
     if ( is_array( $output ) )

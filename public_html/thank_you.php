@@ -1,7 +1,5 @@
 <?php require_once("../resources/config.php"); ?>
 
-<?php require_once("resources/cart_functions.php"); ?>
-
 <?php 
 
     // if we can get transaction Identifier('tx'),
@@ -188,6 +186,7 @@
                                 <!-- After a transaction, destroy all sessions and assign user session again. -->
                                 <?php $username = $_SESSION['username']; ?>
                                 <?php session_destroy(); ?>
+                                <?php session_start(); ?>
                                 <?php $_SESSION['username'] = $username; ?>
 
     						</span>

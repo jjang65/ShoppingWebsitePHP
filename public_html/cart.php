@@ -1,7 +1,5 @@
 <?php 
 require_once("../resources/config.php"); 
-require_once("resources/cart_functions.php"); 
-
 
 $total = 0;
 $item_quantity = 0;
