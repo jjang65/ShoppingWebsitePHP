@@ -1,9 +1,21 @@
 <?php require_once("../resources/config.php"); ?>
 
+<?php 
+
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+    $query = "SELECT * FROM products WHERE id = :id ";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    $statement->execute();
+    $quotes = $statement->fetchAll();
+
+ ?>
+
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
 
-<script src="js/singlepageValidate.js" type="text/javascript"></script>
+<script src="js/singlepageValidate.js"></script>
 
 	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
@@ -15,19 +27,6 @@
         </div>
       </div>
     </div>
-		
-    <?php 
-
-    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-    $query = "SELECT * FROM products WHERE id = :id ";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':id', $id, PDO::PARAM_INT);
-    $statement->execute();
-    $quotes = $statement->fetchAll();
-
-    ?>
-
 
     <?php foreach($quotes as $quote): ?>
 	<section class="ftco-section bg-light">
@@ -44,20 +43,6 @@
     				<p><?= $quote['short_description']; ?></p>
     				<p><?= $quote['description']; ?></p>
 					<div class="row mt-4">
-						<!-- <div class="col-md-6">
-							<div class="form-group d-flex">
-					        	<div class="select-wrap">
-		                  		  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-				                  <select name="" id="" class="form-control">
-				                  	<option value="">Small</option>
-				                    <option value="">Medium</option>
-				                    <option value="">Large</option>
-				                    <option value="">Extra Large</option>
-			                	  </select>
-			               		</div>
-			            	</div>
-						</div> -->
-
 						<form action="cart.php" method="get">
 							<div class="w-100"></div>
 							<div class="input-group col-md-8 d-flex mb-4">
@@ -72,7 +57,7 @@
 				                	</button>
 				            	</span>
 				            	<!-- Item Quantity -->
-				             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">				         
+				             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">				         
 				             	<!-- Plus Button -->
 				             	<span class="input-group-btn ml-2">
 				                	<button id="plus_button" type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
@@ -87,11 +72,11 @@
 		          	</div>
 
           	
-    			</div>
-    		</div>
-    	</div>
-    </section>
-<?php endforeach ?>
+	    		</div>
+	    	</div>
+	    </div>
+	</section>
+	<?php endforeach ?>
 
 
 <!-- Footer Section --> 

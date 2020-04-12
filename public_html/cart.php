@@ -5,7 +5,6 @@ $total = 0;
 $item_quantity = 0;
 
     if(isset($_GET['id']) && isset($_GET['quantity'])){
-        debug_to_console("if is called");
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         $quantity = filter_input(INPUT_GET, 'quantity', FILTER_SANITIZE_NUMBER_INT);
 
@@ -16,14 +15,10 @@ $item_quantity = 0;
         $quotes = $statement->fetchAll();
 
         foreach($quotes as $quote) {
-            debug_to_console("product_in_stock-> " . $quote['in_stock']);
-            debug_to_console("quantity-> " . $quantity);
             // if product_quantity is less than the quantity required by customer
             if($quote['in_stock'] > $quantity){
-                debug_to_console("if in_stock > quantity is called");
                 $_SESSION['product_' . $id] = $quantity;
             }else{
-                debug_to_console("else is called");
                 set_message("Sorry, We only have " . $quote['in_stock'] . " " . "{$quote['title']}" . " Available");
             }
         }
@@ -78,9 +73,6 @@ $item_quantity = 0;
 ?>
 
 
-
-<link rel="stylesheet" type="text/css" href="css/mysytles.css">
-
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
 		
@@ -97,7 +89,7 @@ $item_quantity = 0;
 	<form action="#" method="post">
 		<section class="ftco-section ftco-cart">
 			<div class="container">
-				<div><h4 class="text-center bg-danger"><?php toast_message(); ?></h4></div>
+				<?php toast_message(); ?>
 				<div class="row">
     			<div class="col-md-12 ftco-animate">
 
@@ -166,7 +158,7 @@ $item_quantity = 0;
                                                         <td class="price">&#36;<?= $quote['price'] ?></td>
                                                         <td class="quantity">
                                                             <div class="input-group mb-3">
-                                                                <input type="text" name="quantity" class="quantity form-control input-number" value="<?= $value ?>" min="1" max="100">
+                                                                <input type="text" name="quantity" class="quantity form-control input-number" value="<?= $value ?>">
                                                             </div>
                                                         </td>
                                                         <td class="total">&#36;<?= $sub ?></td>

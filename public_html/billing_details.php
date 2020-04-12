@@ -3,7 +3,7 @@
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
 
-<script src="js/formValidate.js" type="text/javascript"></script>
+<script src="js/formValidate.js"></script>
 <link rel="stylesheet" type="text/css" href="css/mysytles.css">
 		
 	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">

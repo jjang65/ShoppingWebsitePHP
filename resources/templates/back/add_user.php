@@ -75,7 +75,7 @@ if(isset($_POST['add_user'])){
   </h1>
 
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="#" method="post" enctype="multipart/form-data">
 
   <div class="col-md-6">
 
@@ -87,7 +87,7 @@ if(isset($_POST['add_user'])){
 
       <div class="form-group">
           <label for="email">Email</label>
-      <input type="text" name="email" class="form-control"   >
+      <input type="text" name="email" id="email" class="form-control">
          
      </div>
 
@@ -107,26 +107,21 @@ if(isset($_POST['add_user'])){
 
       <div class="form-group">
           <label for="password">Password</label>
-      <input type="password" name="password" class="form-control"  >
+      <input type="password" name="password" id="password" class="form-control">
          
      </div>
 
      <!-- User Image -->
       <div class="form-group">
-          <label for="product-title">User Image</label>
-          <input type="file" name="image">
+          <label for="image">User Image</label>
+          <input type="file" name="image" id="image">
       </div>
-      <input type="submit" name="add_user" class="btn btn-primary pull-right" value="Add User" >
+      <input type="submit" name="add_user" class="btn btn-primary pull-right" value="Add User">
       <div class="form-group">
          
      </div>
 
-
-      
-
   </div>
-
-
 
 </form>
 

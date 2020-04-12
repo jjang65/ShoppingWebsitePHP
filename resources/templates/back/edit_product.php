@@ -125,122 +125,109 @@ if(isset($_POST['update'])){
 
 
 
-
-
-
-
-
 <div class="row">
-<h1 class="page-header">
-   Edit Product
-
-</h1>
+  <h1 class="page-header">
+     Edit Product
+  </h1>
 </div>
-               
+
+<form action="#" method="post" enctype="multipart/form-data">
 
 
-<form action="" method="post" enctype="multipart/form-data">
+  <div class="col-md-8">
 
-
-<div class="col-md-8">
-
-<div class="form-group">
-    <label for="product-title">Product Title </label>
-        <input type="text" name="title" class="form-control" value="<?= $title; ?>">
-       
-    </div>
-
-    <div class="form-group">
-           <label for="product-title">Product Description</label>
-      <textarea name="description" id="" cols="30" rows="10" class="form-control"><?= $description ?></textarea>
-    </div>
-
-    <div class="form-group row">
-
-      <div class="col-xs-3">
-        <label for="product-price">Product Price</label>
-        <input type="number" step="0.01" name="price" class="form-control" size="60" value="<?= $price ?>">
+  <div class="form-group">
+      <label for="title">Product Title </label>
+        <input type="text" name="title" class="form-control" value="<?= $title; ?>" id="title">
       </div>
-    </div>
 
-    <div class="form-group">
-           <label for="product-title">Product Short Description</label>
-      <textarea name="short_description" id="" cols="30" rows="3" class="form-control"><?= $short_description ?></textarea>
-    </div>
+      <div class="form-group">
+        <label for="description">Product Description</label>
+        <textarea name="description" id="description" cols="30" rows="10" class="form-control"><?= $description ?></textarea>
+      </div>
+
+      <div class="form-group row">
+
+        <div class="col-xs-3">
+          <label for="price">Product Price</label>
+          <input type="number" step="0.01" name="price" class="form-control" value="<?= $price ?>" id="price">
+        </div>
+      </div>
+
+      <div class="form-group">
+             <label for="short_description">Product Short Description</label>
+        <textarea name="short_description" id="short_description" cols="30" rows="3" class="form-control"><?= $short_description ?></textarea>
+      </div>
 
 
-</div><!--Main Content-->
+  </div><!--Main Content-->
 
 
-<!-- SIDEBAR-->
+  <!-- SIDEBAR-->
 
 
-<aside id="admin_sidebar" class="col-md-4">
+  <aside id="admin_sidebar" class="col-md-4">
 
-     
-     <div class="form-group">
-       <!-- <input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft"> -->
+       
+       <div class="form-group">
+        <!-- <input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft"> -->
         <input type="submit" name="update" class="btn btn-primary btn-lg" value="Update">
-    </div>
+      </div>
 
 
-     <!-- Product Categories-->
+       <!-- Product Categories-->
 
-    <div class="form-group">
-         <label for="product-title">Product Category</label>
-        <select name="cat_id" id="" class="form-control">
-           
-          <?php foreach($categories as $category): ?>
+      <div class="form-group">
+          <label for="category">Product Category</label>
+          <select name="cat_id" id="category" class="form-control">
+             
+            <?php foreach($categories as $category): ?>
 
-            <option value="<?= $category['id'] ?>" <?=$cat_id == $category['id'] ? ' selected="selected"' : '';?>><?= $category['title'] ?></option>
+              <option value="<?= $category['id'] ?>" <?=$cat_id == $category['id'] ? ' selected="selected"' : '';?>><?= $category['title'] ?></option>
 
-          <?php endforeach ?>
+            <?php endforeach ?>
 
-        </select>
-    </div>
-
-
-    <!-- Product Brands-->
+          </select>
+      </div>
 
 
-    <!-- <div class="form-group">
-      <label for="product-title">Product Brand</label>
-         <select name="product_brand" id="" class="form-control">
-            <option value="">Select Brand</option>
-         </select>
-    </div> -->
+      <!-- Product Brands-->
 
 
-    <div class="form-group">
-      <label for="product-title">Product Quantity</label>
-         <input class="form-control" type="number" name="in_stock" value="<?= $in_stock ?>">
-    </div>
+      <!-- <div class="form-group">
+        <label for="product-title">Product Brand</label>
+           <select name="product_brand" id="" class="form-control">
+              <option value="">Select Brand</option>
+           </select>
+      </div> -->
 
 
-<!-- Product Tags -->
+      <div class="form-group">
+        <label for="quantity">Product Quantity</label>
+          <input class="form-control" type="number" name="in_stock" id="quantity" value="<?= $in_stock ?>">
+      </div>
 
 
-    <!-- <div class="form-group">
-          <label for="product-title">Product Keywords</label>
-          <hr>
-        <input type="text" name="product_tags" class="form-control">
-    </div> -->
-
-    <!-- Product Image -->
-    <div class="form-group">
-        <label for="product-title">Product Image</label>
-          <?php if(isset($row['image'])): ?>
-            <a class="btn btn-danger" href="index.php?page=products&delete_image_id=<?= $row['id'] ?>&filename=<?= $image ?>"></span> Delete Image</a>
-            <br>
-            <img width='200' src="../resources/uploads/<?= $image ?>" alt="<?= $image ?>">
-          <?php endif ?>
-        <input type="file" name="image">
-    </div>
+  <!-- Product Tags -->
 
 
+      <!-- <div class="form-group">
+            <label for="product-title">Product Keywords</label>
+            <hr>
+          <input type="text" name="product_tags" class="form-control">
+      </div> -->
 
-</aside><!--SIDEBAR-->
+      <!-- Product Image -->
+      <div class="form-group">
+          <label for="image">Product Image</label>
+            <?php if(isset($row['image'])): ?>
+              <a class="btn btn-danger" href="index.php?page=products&delete_image_id=<?= $row['id'] ?>&filename=<?= $image ?>">Delete Image</a>
+              <br>
+              <img width='200' src="../resources/uploads/<?= $image ?>" alt="<?= $image ?>">
+            <?php endif ?>
+          <input type="file" name="image" id="image">
+      </div>
 
-
+  </aside><!--SIDEBAR-->
     
 </form>

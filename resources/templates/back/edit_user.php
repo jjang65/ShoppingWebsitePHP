@@ -91,13 +91,13 @@ if(isset($_POST['update_user'])){
 
                       </div>
 
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="#" method="post" enctype="multipart/form-data">
 
                         <div class="col-md-6">
 
                            <div class="form-group">
                               <label for="email">Email</label>
-                          <input type="text" name="email" class="form-control" value="<?php echo $email; ?>"  >
+                          <input type="text" name="email" id="email" class="form-control" value="<?php echo $email; ?>"  >
 
 
                             <!-- <div class="form-group">
@@ -115,33 +115,29 @@ if(isset($_POST['update_user'])){
 
                             <div class="form-group">
                                 <label for="password">Password</label>
-                            <input type="password" name="password" class="form-control" value="<?= $password ?>">
+                            <input type="password" name="password" id="password" class="form-control" value="<?= $password ?>">
                                
                            </div>
 
 
                            <!-- User Photo -->
                             <div class="form-group">
-                                <label for="product-title">User Photo</label> <br>
+                                <label for="image">User Photo</label> <br>
 
-                                <input type="file" name="image">
+                                <input type="file" name="image" id="image">
                             </div>
 
                             <div class="form-group">
 
-                              <a class="btn btn-danger" href="index.php?page=users&delete_image_id=<?= $row['id'] ?>&filename=<?= $row['photo'] ?>"></span> Delete Image</a>
+                              <a class="btn btn-danger" href="index.php?page=users&delete_image_id=<?= $row['id'] ?>&filename=<?= $row['photo'] ?>"> Delete Image</a>
 
                             <!-- Update Button -->
                             <input type="submit" name="update_user" class="btn btn-primary pull-right" value="Update" >
                                
                            </div>
 
-
-                            
-
                         </div>
-
-                      
+                      </div>
 
             </form>
 

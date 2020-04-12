@@ -22,67 +22,46 @@
       </div>
 
     </div>
-
 		
 		<section class="ftco-section bg-light">
     	<div class="container-fluid">
-            <div class="row">
+        <div class="row">
+          
+          <!-- Categories -->
+          <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
-                
-            <!-- Categories -->
-            <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
+          <div class="row col-md-9">
 
-            <div class="row col-md-9">
+            <?php toast_message(); ?>
 
-              <?php toast_message(); ?>
+            <?php foreach($quotes_prods as $quote): ?>
 
-              <?php foreach($quotes_prods as $quote): ?>
-
-                <div class="col-sm col-md-6 col-lg-3 ftco-animate">
-                  <div class="product">
-                    <a href="product-single.php?id=<?= $quote['id'] ?>" class="img-prod">
-                      <?php if(isset($quote['image'])): ?>
-                        <img class="img-fluid" src="resources/uploads/<?= $quote['image'] ?>" alt="Colorlib Template">
-                      <?php endif ?>
-                    </a>
-                    <div class="text py-3 px-3">
-                      <h3><a href="product-single.php?id=<?= $quote['id'] ?>"><?= $quote['title'] ?></a></h3>
-                      <div class="d-flex">
-                        <div class="pricing">
-                          <p class="price"><span class="price-sale">&#36;<?= $quote['price'] ?></span></p>
-                        </div>
+              <div class="col-sm col-md-6 col-lg-3 ftco-animate">
+                <div class="product">
+                  <a href="product-single.php?id=<?= $quote['id'] ?>" class="img-prod">
+                    <?php if(isset($quote['image'])): ?>
+                      <img class="img-fluid" src="resources/uploads/<?= $quote['image'] ?>" alt="Colorlib Template">
+                    <?php endif ?>
+                  </a>
+                  <div class="text py-3 px-3">
+                    <h3><a href="product-single.php?id=<?= $quote['id'] ?>"><?= $quote['title'] ?></a></h3>
+                    <div class="d-flex">
+                      <div class="pricing">
+                        <p class="price"><span class="price-sale">&#36;<?= $quote['price'] ?></span></p>
                       </div>
-                      <hr>
-                      <p class="bottom-area d-flex">
-                        <a href="cart.php?add=<?= $quote['id'] ?>" class="add-to-cart"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-                      </p>
                     </div>
+                    <hr>
+                    <p class="bottom-area d-flex">
+                      <a href="cart.php?add=<?= $quote['id'] ?>" class="add-to-cart"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+                    </p>
                   </div>
                 </div>
+              </div>
 
-              <?php endforeach ?>
-
-            </div>
-            
-        		
-
-        <!-- Pagination -->
-    	<!-- <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
+            <?php endforeach ?>
           </div>
         </div>
-    	</div> -->
+      </div>
     </section>
 
 		

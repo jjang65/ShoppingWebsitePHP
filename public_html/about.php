@@ -16,12 +16,11 @@
 
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
 			<div class="container">
-				<h3 class="text-center bg-warning"><?php toast_message(); ?></h3>
+				<?php toast_message(); ?>
 				<div class="row">
 					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/bg_2.jpg);">
 						<!-- <a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center"> -->
 							<span class="icon-play"></span>
-						</a>
 					</div>
 					<div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section-bold mb-5 mt-md-5">

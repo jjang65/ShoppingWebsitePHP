@@ -28,22 +28,18 @@ $rows = $statement_cats->fetchAll();
 
 <div class="col-md-4">
 
-    <h3 class="bg-danger"></h3>
-    
-    <form action="" method="post">
+    <form action="#" method="post">
     
         <div class="form-group">
-            <label for="category-title">Title</label>
-            <input type="text" name="title" class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="form-control" id="title">
         </div>
 
         <div class="form-group">
             <input type="submit" name="add_category" class="btn btn-primary" value="Add Category">
         </div>      
 
-
     </form>
-
 
 </div>
 

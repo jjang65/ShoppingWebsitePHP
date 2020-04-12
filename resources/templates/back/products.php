@@ -82,7 +82,6 @@ if(!isset($_GET['sort'])) {
   </div>
 </div>
 
-<h3 class="bg-danger"></h3>
 <table class="table table-hover">
     <thead>
       <tr>

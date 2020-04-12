@@ -119,12 +119,11 @@ else {
 
  ?>
 
-<script src="js/formValidate.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="css/mysytles.css">
+
 
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
-		
+	<script src="js/formValidate.js"></script>	
 	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -138,16 +137,15 @@ else {
 		
 	<section class="ftco-section">
 	  <form id="orderform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-	  <input type="hidden" name="cmd" value="_cart">
-  	  <input type="hidden" name="business" value="sb-f7ygs09627@business.example.com">
-	  <input type="hidden" name="currency_code" value="CAD">
-      <div class="container">
-      	<div class="row">
-    			<div class="col-md-12 ftco-animate">
-
-    				<div class="cart-list">
-	    				<table class="table">
-	    					
+		<input type="hidden" name="cmd" value="_cart">
+	  	<input type="hidden" name="business" value="sb-f7ygs09627@business.example.com">
+		<input type="hidden" name="currency_code" value="CAD">
+		<input type="hidden" name="shipping_1" value="<?= $_SESSION['transfer_fee'] ?>">
+	    <div class="container">
+	      	<div class="row">
+	    		<div class="col-md-12 ftco-animate">
+	    			<div class="cart-list">
+		    			<table class="table">
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>Image</th>
@@ -181,97 +179,100 @@ else {
 												$quotes = $statement->fetchAll();
 												$sub = 0;
 
-							    			 ?>
+							    			?>
 
-												<?php foreach($quotes as $quote): ?>
-												<?php $sub = $quote['price'] * $value; ?>
+											<?php foreach($quotes as $quote): ?>
+											<?php $sub = $quote['price'] * $value; ?>
+											
+											<tr class="text-center">
+												<td class="image-prod">
+													<?php if(isset($quote['image'])): ?>
+														<img width="100" src="resources/uploads/<?= $quote['image'] ?>" alt="image"/>
+													<?php endif ?>
+												</td>
+
+												<td class="product-name">
+													<h3><?= $quote['title'] ?></h3>
+													<p><?= $quote['short_description'] ?></p>
+												</td>
+												<td class="price">&#36;<?= $quote['price'] ?></td>
+												<td class="total"><?= $value ?></td>
+												<td class="total">&#36;<?= $sub ?></td>
+											</tr>
+											<tr style="display:none;">
+											<td><input type="hidden" name="upload" value="1"></td>
+						                    <td><input type="hidden" name="item_name_<?= $item_name ?>" value="<?= $quote['title'] ?>"/></td>
+						                    <td><input type="hidden" name="item_number_<?= $item_number ?>" value="<?= $quote['id'] ?>"/></td>
+						                    <td><input type="hidden" name="amount_<?= $amount ?>" value="<?= $quote['price'] ?>"/></td>
+						                    <td><input type="hidden" name="quantity_<?= $quantity ?>" value="<?= $value ?>"/></td>
+						                	</tr>
+
+											<?php 
+												// everytime, when looping though, these Paypal values increment by 1
+							                    $item_name++;
+							                    $item_number++;
+							                    $amount++;
+							                    $quantity++;
+											?>
+
+											<?php endforeach ?>
 												
-												<tr class="text-center">
-													<td class="image-prod">
-														<?php if(isset($quote['image'])): ?>
-															<img width="100" src="resources/uploads/<?= $quote['image'] ?>" alt="image"/>
-														<?php endif ?>
-													</td>
-
-													<td class="product-name">
-														<h3><?= $quote['title'] ?></h3>
-														<p><?= $quote['short_description'] ?></p>
-													</td>
-													<td class="price">&#36;<?= $quote['price'] ?></td>
-													<td class="total"><?= $value ?></td>
-													<td class="total">&#36;<?= $sub ?></td>
-												</tr>
-
-												<input type="hidden" name="upload" value="1">
-							                    <input type="hidden" name="item_name_<?= $item_name ?>" value="<?= $quote['title'] ?>"/>
-							                    <input type="hidden" name="item_number_<?= $item_number ?>" value="<?= $quote['id'] ?>"/>
-							                    <input type="hidden" name="amount_<?= $amount ?>" value="<?= $quote['price'] ?>"/>
-							                    <input type="hidden" name="quantity_<?= $quantity ?>" value="<?= $value ?>"/>
-
-												<?php 
-													// everytime, when looping though, these Paypal values increment by 1
-								                    $item_name++;
-								                    $item_number++;
-								                    $amount++;
-								                    $quantity++;
-												?>
-
-												<?php endforeach ?>
-												<input type="hidden" name="shipping_1" value="<?= $_SESSION['transfer_fee'] ?>">
 										<?php endif ?>
 
 									<?php endif ?>
 
 								<?php endforeach ?>
-						      
-						    </tbody>
-						  </table>
-					  </div>
-    			</div>
-    		</div>
-        <div class="row justify-content-center">
-          <div class="col-xl-8 ftco-animate">
-	          <div class="row mt-5 pt-3 d-flex">
-	          	<div class="col-md-6 d-flex">
-	          		<div class="cart-detail cart-total bg-light p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Cart Total</h3>
-	          			<p class="d-flex">
-    						<span>Item Quantity</span>
-    						<span>
-    							<?= isset($_SESSION['item_quantity']) ? $_SESSION['item_quantity'] : $_SESSION['item_quantity'] = 0?>
-    						</span>
-	    				</p>
-    					<p class="d-flex">
-    						<span>Delivery</span>
-    						<?php if($_SESSION['transfer_fee'] === 0): ?>
-				   	    		<span>Free Shipping</span>
-                    		<?php else: ?>
-                        		<span>&#36;<?= $_SESSION['transfer_fee'] ?></span>
-                    		<?php endif ?>
-    					</p>
-    					<hr>
-    					<p class="d-flex total-price">
-    						<span>Total</span>
-    						<span>&#36;
-    							<?= isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = 0; ?>
-    						</span>
-    					</p>
-						</div>
-	          	</div>
-	          	<div class="col-md-6">
-	          		<div class="cart-detail bg-light p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Payment Method</h3>
-	          			
-						<?php if(isset($_SESSION['item_quantity']) === true && $_SESSION['item_quantity'] >= 1): ?>
-         					<input id="paypalButton" type="image" name="upload" width="150" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal">
-         				<?php endif ?>
-
+							      
+							</tbody>
+						</table>
 					</div>
-	          	</div>
-	          </div>
-          </div> <!-- .col-md-8 -->
-        </div>
-      </div>
+	    		</div>
+	    	</div>
+	    </div>
+
+	        <div class="row justify-content-center">
+	          <div class="col-xl-8 ftco-animate">
+		          <div class="row mt-5 pt-3 d-flex">
+		          	<div class="col-md-6 d-flex">
+		          		<div class="cart-detail cart-total bg-light p-3 p-md-4">
+		          			<h3 class="billing-heading mb-4">Cart Total</h3>
+		          			<p class="d-flex">
+	    						<span>Item Quantity</span>
+	    						<span>
+	    							<?= isset($_SESSION['item_quantity']) ? $_SESSION['item_quantity'] : $_SESSION['item_quantity'] = 0?>
+	    						</span>
+		    				</p>
+	    					<p class="d-flex">
+	    						<span>Delivery</span>
+	    						<?php if($_SESSION['transfer_fee'] === 0): ?>
+					   	    		<span>Free Shipping</span>
+	                    		<?php else: ?>
+	                        		<span>&#36;<?= $_SESSION['transfer_fee'] ?></span>
+	                    		<?php endif ?>
+	    					</p>
+	    					<hr>
+	    					<p class="d-flex total-price">
+	    						<span>Total</span>
+	    						<span>&#36;
+	    							<?= isset($_SESSION['item_total']) ? $_SESSION['item_total'] : $_SESSION['item_total'] = 0; ?>
+	    						</span>
+	    					</p>
+							</div>
+		          	</div>
+		          	<div class="col-md-6">
+		          		<div class="cart-detail bg-light p-3 p-md-4">
+		          			<h3 class="billing-heading mb-4">Payment Method</h3>
+		          			
+							<?php if(isset($_SESSION['item_quantity']) === true && $_SESSION['item_quantity'] >= 1): ?>
+	         					<input id="paypalButton" type="image" name="upload" width="150" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal">
+	         				<?php endif ?>
+
+						</div>
+		          	</div>
+		          </div>
+	          </div> <!-- .col-md-8 -->
+	        </div>
+	      </div>
       </form>
     </section> <!-- .section -->
 

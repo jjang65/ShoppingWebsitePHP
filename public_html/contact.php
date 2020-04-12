@@ -72,7 +72,7 @@ if(isset($_POST['submit'])){
 
     <section class="ftco-section contact-section bg-light">
       <div class="container">
-        <h3 class="text-center bg-warning"><?php toast_message(); ?></h3>
+        <?php toast_message(); ?>
         <div class="row block-9">
           <div class="col-md-6 order-md-last d-flex">
             <form class="bg-white p-5 contact-form" method="post">

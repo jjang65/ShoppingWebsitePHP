@@ -16,15 +16,7 @@ $rows = $statement->fetchAll();
                             Users<a class="btn btn-primary pull-right" href="index.php?add_user">Add User</a>
                         </h1>
 
-                        <h3 class="bg-success">
-                        </h3>
-
-                          <p class="bg-success">
-                            <?php //echo $message; ?>
-                        </p>
-
                         <!-- <a href="add_user.php" class="btn btn-primary">Add User</a> -->
-
 
                         <div class="col-md-12">
 

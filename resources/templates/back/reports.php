@@ -18,8 +18,7 @@ $rows = $statement->fetchAll();
    All Reports
 
 </h1>
-
-<h3 class="bg-danger"><?php toast_message(); ?></h3>
+<?php toast_message(); ?>
 <table class="table table-hover">
 
 
@@ -38,7 +37,7 @@ $rows = $statement->fetchAll();
            <th>Last Name</th>
            <th>Full Address</th>
            <th>Phone</th>
-
+           <th>Delete</th>
 
       </tr>
     </thead>

@@ -29,9 +29,7 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mystyle.css">
-
-
-
+    <link rel="stylesheet" type="text/css" href="css/mysytles.css">
 
   </head>
   <body>

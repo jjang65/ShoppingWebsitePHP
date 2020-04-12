@@ -1,11 +1,12 @@
 <?php require_once("../resources/config.php"); ?>
 
-<script src="js/formValidateForRegister.js?2" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="css/mysytles.css">
+
 
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
 		
+<script src="js/formValidateForRegister.js?2"></script>
+
 	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -16,7 +17,7 @@
         </div>
       </div>
     </div>
-    <h3 class="text-center bg-danger"><?php toast_message(); ?></h3>
+    <?php toast_message(); ?>
     
 	<section class="ftco-section">
       <div class="container">
@@ -77,7 +78,6 @@
           </div> <!-- .col-md-8 -->
         </div>
       </div>
-      </form>
     </section> <!-- .section -->
 
     

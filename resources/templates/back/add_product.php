@@ -82,44 +82,37 @@ $rows = $statement->fetchAll();
 </h1>
                
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="#" method="post" enctype="multipart/form-data">
 
 
 <div class="col-md-8">
 
     <!-- Product Title-->
     <div class="form-group">
-    <label for="product-title">Product Title </label>
-        <input type="text" name="title" class="form-control">
-       
+    <label for="title">Product Title </label>
+      <input type="text" name="title" class="form-control" id="title">
     </div>
 
     <!-- Product Description-->
     <div class="form-group">
-      <label for="product-title">Product Description</label>
-      <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
+      <label for="description">Product Description</label>
+      <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
     </div>
 
 
     <!-- Product Price-->
     <div class="form-group row">
       <div class="col-xs-3">
-        <label for="product-price">Product Price</label>
-        <input type="number" step="0.01"  name="price" class="form-control" size="60">
+        <label for="price">Product Price</label>
+        <input type="number" step="0.01"  name="price" class="form-control" id="price">
       </div>
     </div>
 
     <!-- Product Short Description-->
     <div class="form-group">
-      <label for="product-title">Product Short Description</label>
-      <textarea name="short_description" id="" cols="30" rows="3" class="form-control"></textarea>
+      <label for="short_description">Product Short Description</label>
+      <textarea name="short_description" id="short_description" cols="30" rows="3" class="form-control"></textarea>
     </div>
-
-
-
-
-    
-    
 
 </div><!--Main Content-->
 
@@ -136,9 +129,9 @@ $rows = $statement->fetchAll();
      <!-- Product Categories-->
 
     <div class="form-group">
-         <label for="product-title">Product Category</label>
-        <select name="cat_id" id="" class="form-control">
-            <option value="">Select Category</option>
+        <label for="select_category">Product Category</label>
+        <select name="cat_id" id="select_category" class="form-control">
+            <option>Select Category</option>
             
             <?php foreach($rows as $row): ?>
               <option value="<?= $row['id'] ?>"><?= $row['title'] ?></option>
@@ -160,8 +153,8 @@ $rows = $statement->fetchAll();
     <!-- Product Quantity-->
 
     <div class="form-group">
-      <label for="product-title">Product Quantity</label>
-         <input class="form-control" type="number" name="in_stock">
+      <label for="quantity">Product Quantity</label>
+        <input class="form-control" type="number" name="in_stock" id="quantity">
     </div>
 
 
@@ -176,8 +169,8 @@ $rows = $statement->fetchAll();
 
     <!-- Product Image -->
     <div class="form-group">
-        <label for="product-title">Product Image</label>
-        <input type="file" name="image">
+        <label for="image">Product Image</label>
+        <input type="file" name="image" id="image">
     </div>
 
 

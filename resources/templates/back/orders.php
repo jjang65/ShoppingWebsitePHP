@@ -12,11 +12,8 @@ $rows = $statement->fetchAll();
 <div class="row">
 <h1 class="page-header">
    All Orders
-
 </h1>
-  <h4 class="bg-danger">
-     <?php toast_message(); ?>
-  </h4>
+  <?php toast_message(); ?>
 </div>
 
 <div class="row">
@@ -71,4 +68,5 @@ $rows = $statement->fetchAll();
 
     </tbody>
 </table>
+</div>
 </div>

@@ -53,13 +53,13 @@
     <h1 class="text-center">Sign In</h1>
 
       <?php toast_message(); ?>
-    <form class="div_center" action="" method="post" enctype="multipart/form-data">
+    <form class="div_center" action="#" method="post" enctype="multipart/form-data">
 
-        <div class="form-group"><label for="">
-            Email<input type="text" name="email" class="form-control"></label>
+        <div class="form-group"><label for="email">
+            Email<input type="text" name="email" class="form-control" id="email"></label>
         </div>
          <div class="form-group"><label for="password">
-            Password<input type="password" name="password" class="form-control"></label>
+            Password<input type="password" name="password" class="form-control" id="password"></label>
         </div>
 
         <div class="form-group">

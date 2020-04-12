@@ -41,7 +41,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" >
             <!-- Brand and toggle get grouped for better mobile display -->
             
             <?php include(TEMPLATE_BACK . DS . "top_nav.php") ?>
