@@ -1,2 +1,4 @@
 vendor/*
 resources/email_config.php
+resources/connect.php
+resources/templates/front/googlemap.php
