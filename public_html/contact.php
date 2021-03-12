@@ -1,5 +1,6 @@
-<?php 
-require_once("../resources/config.php"); 
+<?php
+
+require_once("../resources/config.php");
 
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
@@ -27,14 +28,14 @@ if(isset($_POST['submit'])){
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = EMAIL;                                  // SMTP username
-    $mail->Password   = PASSWORD;                               // SMTP password
+    $mail->Username   = $_ENV['EMAIL'];                                  // SMTP username
+    $mail->Password   = $_ENV['PASSWORD'];                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
     //Recipients
-    $mail->setFrom(EMAIL, $name . ' from Midist Shopping Site');
-    $mail->addAddress(EMAIL, 'Midist Shopping');                // Name is optional
+    $mail->setFrom($_ENV['EMAIL'], $name . ' from Midist Shopping Site');
+    $mail->addAddress($_ENV['EMAIL'], 'Midist Shopping');                // Name is optional
     $mail->addReplyTo($email, $name);
 
     // Content
@@ -58,7 +59,7 @@ if(isset($_POST['submit'])){
 
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
-		
+
 		<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -94,7 +95,7 @@ if(isset($_POST['submit'])){
               </div>
 
             </form>
-          
+
           </div>
 
           <div class="col-md-6 d-flex">
@@ -109,8 +110,8 @@ if(isset($_POST['submit'])){
 
       </div>
     </section>
-		
+
 		<?php include(TEMPLATE_FRONT . DS . "subscribe.php"); ?>
 
-<!-- Footer Section --> 
+<!-- Footer Section -->
 <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
