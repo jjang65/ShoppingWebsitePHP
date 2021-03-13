@@ -6,22 +6,19 @@
 	<!-- Main Image Section -->
 	<?php include(TEMPLATE_FRONT . DS . "main_image.php") ?>
 
-        <?php toast_message(); ?>
-    
+    <?php toast_message(); ?>
+
     <!-- Slider Section -->
     <?php include(TEMPLATE_FRONT . DS . "slider.php") ?>
 
-  
     <!-- Products In Index Section -->
     <?php include(TEMPLATE_FRONT . DS . "products_in_index.php") ?>
 
-    
     <!-- Service Section -->
     <?php include(TEMPLATE_FRONT . DS . "service.php"); ?>
 
-    
-	<!-- Subscribe Section -->	
+	<!-- Subscribe Section -->
 	<?php include(TEMPLATE_FRONT . DS . "subscribe.php"); ?>
 
-<!-- Footer Section -->	
+<!-- Footer Section -->
 <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>

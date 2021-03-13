@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(isset($_SESSION['username'])) {
 	$email = $_SESSION['username'];
 	$query = "SELECT role FROM users WHERE email = :email";
@@ -7,9 +7,7 @@ if(isset($_SESSION['username'])) {
 	$statement->execute();
 	$role = $statement->fetch();
 }
-
-
- ?>
+?>
 	<div class="container">
 	  <a class="navbar-brand" href="index.php">Modist</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +26,6 @@ if(isset($_SESSION['username'])) {
 	      </div>
 	    </li>
 	      <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
-	      <!-- <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li> -->
 	      <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
 	      <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span></a></li>
 	      <?php if(!isset($_SESSION['username'])): ?>
@@ -37,7 +34,9 @@ if(isset($_SESSION['username'])) {
 	      <?php if(isset($_SESSION['username'])): ?>
 	      	<li class="nav-item"><a href="logout.php" class="nav-link">Log out</a></li>
 	      <?php endif ?>
-	      <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
+		  <?php if(!isset($_SESSION['username'])): ?>
+	      	<li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
+		  <?php endif ?>
 	      <?php if(isset($_SESSION['username']) && $role['role'] === 'admin'): ?>
 	      	<li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
 	      <?php endif ?>

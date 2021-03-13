@@ -1,5 +1,5 @@
-<?php 
-require_once("../resources/config.php"); 
+<?php
+require_once("../resources/config.php");
 
 $total = 0;
 $item_quantity = 0;
@@ -75,7 +75,7 @@ $item_quantity = 0;
 
 <!-- Header Section -->
 <?php include(TEMPLATE_FRONT . DS . "header.php"); ?>
-		
+
 	<div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -95,7 +95,7 @@ $item_quantity = 0;
 
     				<div class="cart-list">
 	    				<table class="table">
-	    					
+
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>&nbsp;</th>
@@ -114,7 +114,7 @@ $item_quantity = 0;
                                     <?php if($value > 0): ?>
                                         <?php if(substr($name, 0, 8) == "product_"): ?>
 
-                                            <?php 
+                                            <?php
                                                 // get length of product_id
                                                 $length = strlen($name) - 8;
 
@@ -131,11 +131,11 @@ $item_quantity = 0;
 
                                                 $sub = 0;
                                             ?>
-                                                
+
 
                                                 <?php foreach($quotes as $quote): ?>
-                                                 
-                                                <?php 
+
+                                                <?php
                                                     $sub = $quote['price'] * $value;
                                                     $item_quantity += $value;
                                                 ?>
@@ -169,14 +169,14 @@ $item_quantity = 0;
                                             <?php endif ?>
 
                                         <?php endif ?>
-                                    
-                                    <?php 
+
+                                    <?php
                                         $_SESSION['item_total'] = $total;
-                                        $_SESSION['item_quantity'] = $item_quantity; 
+                                        $_SESSION['item_quantity'] = $item_quantity;
                                     ?>
 
                                 <?php endforeach ?>
-						      
+
 						    </tbody>
 						  </table>
 					  </div>
@@ -228,7 +228,7 @@ $item_quantity = 0;
 			</div>
 		</section>
 	</form>
-    
-<!-- Footer Section -->	
+
+<!-- Footer Section -->
 <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
 

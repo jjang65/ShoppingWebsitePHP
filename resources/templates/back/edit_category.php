@@ -1,7 +1,7 @@
 <?php require_once("../../resources/config.php"); ?>
 
 
-<?php 
+<?php
 
 if(isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -21,7 +21,7 @@ if(isset($_GET['id'])){
         $statement_update->bindValue(':title', $title);
         $statement_update->bindValue(':id', $id, PDO::PARAM_INT);
         $statement_update->execute();
-        
+
         set_message("Category has been Updated");
         redirect("index.php?categories");
     }
@@ -44,20 +44,20 @@ if(isset($_GET['id'])){
             </tr>
         </thead>
 
-            <tbody>
-                <tr>
-                    <th><?= $row['id']; ?></th>
-                </tr>
-            </tbody>
+        <tbody>
+            <tr>
+                <th><?= $row['id']; ?></th>
+            </tr>
+        </tbody>
 
-        </table>
+    </table>
 
 </div>
 
 <div class="col-md-4">
 
     <form action="#" method="post">
-        
+
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" value="<?= $row['title'] ?>" class="form-control">
@@ -65,7 +65,7 @@ if(isset($_GET['id'])){
 
         <div class="form-group">
             <input type="submit" name="update_category" class="btn btn-primary" value="Edit Category">
-        </div>      
+        </div>
 
     </form>
 

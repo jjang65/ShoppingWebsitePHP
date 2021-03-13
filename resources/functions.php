@@ -1,7 +1,6 @@
-<?php 
+<?php
 
 require_once("connect.php");
-
 
 function debug_to_console( $data ) {
     $output = $data;
@@ -11,17 +10,13 @@ function debug_to_console( $data ) {
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
 
-
 function redirect($location){
-
 	header("Location: $location ");
 }
-
 
 function redirect_prior_page($prior_webpage_name){
 	redirect("../../../public_html/{$prior_webpage_name}");
 }
-
 
 function set_message($msg){
 	if(!empty($msg)){
@@ -50,7 +45,6 @@ function toast_message() {
 }
 
 function file_upload_path($original_filename, $upload_subfolder_name = '../../public_html/resources/uploads') {
-	$current_folder = dirname(__FILE__);
 	$path_segments = [$upload_subfolder_name, basename($original_filename)];
 	return join(DIRECTORY_SEPARATOR, $path_segments);
 }
@@ -82,5 +76,4 @@ function valid_password() {
 	return $password_length >= 8;
 }
 
-
- ?>
+?>

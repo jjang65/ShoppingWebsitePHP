@@ -1,10 +1,9 @@
-<?php require_once("../resources/config.php"); 
+<?php require_once("../resources/config.php");
 
   $query = "SELECT * FROM products";
   $statement = $db->prepare($query);
   $statement->execute();
   $quotes_prods = $statement->fetchAll();
-
 
 ?>
 
@@ -22,11 +21,11 @@
       </div>
 
     </div>
-		
+
 		<section class="ftco-section bg-light">
     	<div class="container-fluid">
         <div class="row">
-          
+
           <!-- Categories -->
           <?php include(TEMPLATE_FRONT . DS . "side_nav.php"); ?>
 
@@ -64,7 +63,7 @@
       </div>
     </section>
 
-		
 
-<!-- Footer Section --> 
+
+<!-- Footer Section -->
 <?php include(TEMPLATE_FRONT . DS . "footer.php"); ?>
