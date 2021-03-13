@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 require_once("../../resources/config.php");
 
-if(isset($_GET['delete_product_id'])){
+if(isset($_SESSION['admin']) && isset($_GET['delete_product_id'])){
 	$id = filter_input(INPUT_GET, 'delete_product_id', FILTER_SANITIZE_NUMBER_INT);
 	$query = "DELETE FROM products WHERE id = :id";
 	$statement = $db->prepare($query);

@@ -3,7 +3,7 @@
 
 <?php
 
-if(isset($_GET['id'])){
+if(isset($_SESSION['admin']) && isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     $query = "SELECT * FROM categories WHERE id= :id";
     $statement = $db->prepare($query);

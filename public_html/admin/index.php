@@ -1,35 +1,10 @@
-<?php require_once("../../resources/config.php"); ?>
-<?php include(TEMPLATE_BACK . DS . "header.php"); ?>
-
 <?php
 
-// Check if user is logged in
-if(!isset($_SESSION['username'])){
-    header("Location: ./../index.php");
-}
+require_once("../../resources/config.php");
+include(TEMPLATE_BACK . DS . "header.php");
 
-// Check if user is valid admin
-if(isset($_SESSION['username'])) {
-    $email = $_SESSION['username'];
-    $query = "SELECT * FROM users WHERE email = :email";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':email', $email);
-    $statement->execute();
-    $row = $statement->fetch();
-
-    if($row['role'] !== 'admin') {
-        header("Location: ./../index.php");
-    }
-}
-
-// For Toast Message
 if(isset($_SESSION['message'])) {
-    echo '<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>';
-    echo '<link href="../node_modules/toastr/build/toastr.css" rel="stylesheet"/>';
-    echo '<script src="../node_modules/toastr/toastr.js"></script>';
-    echo '<script>', 'let message =', json_encode($_SESSION['message']), ';', '</script>';
-    echo '<script>', 'toastr.options.closeButton = true;', 'toastr.info(message);','</script>';
-    unset($_SESSION['message']);
+    toast_message();
 }
 
  ?>

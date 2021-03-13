@@ -1,14 +1,9 @@
-<?php require_once("../../resources/config.php"); ?>
+<?php
 
-
-<?php 
-
+require_once("../../resources/config.php");
 use \Gumlet\ImageResize;
 
-set_message("Product has been Updated");
-
-
-if(isset($_GET['id'])){
+if(isset($_SESSION['admin']) && isset($_GET['id'])){
   $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $query = "SELECT * FROM products WHERE id = :id";
   $statement = $db->prepare($query);
@@ -74,7 +69,7 @@ if(isset($_POST['update'])){
                                           , in_stock = :in_stock
                                           , description = :description
                                           , short_description = :short_description
-                                          , image = :image 
+                                          , image = :image
                                    WHERE id = :id";
       $statement_update = $db->prepare($query_update);
       $bind_values = ['title' => $title
@@ -87,10 +82,10 @@ if(isset($_POST['update'])){
                     , 'id' => $id ];
       $statement_update->execute($bind_values);
 
-      set_message("Product has been Updated");
+      set_message("Image has been Updated");
       redirect("index.php?products");
       exit();
-    
+
     } else {
       set_message("File format should be jpg, jpeg, gif, or png");
       redirect("index.php?products");
@@ -168,7 +163,7 @@ if(isset($_POST['update'])){
 
   <aside id="admin_sidebar" class="col-md-4">
 
-       
+
        <div class="form-group">
         <!-- <input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft"> -->
         <input type="submit" name="update" class="btn btn-primary btn-lg" value="Update">
@@ -180,7 +175,7 @@ if(isset($_POST['update'])){
       <div class="form-group">
           <label for="category">Product Category</label>
           <select name="cat_id" id="category" class="form-control">
-             
+
             <?php foreach($categories as $category): ?>
 
               <option value="<?= $category['id'] ?>" <?=$cat_id == $category['id'] ? ' selected="selected"' : '';?>><?= $category['title'] ?></option>
@@ -229,5 +224,5 @@ if(isset($_POST['update'])){
       </div>
 
   </aside><!--SIDEBAR-->
-    
+
 </form>

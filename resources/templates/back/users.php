@@ -1,5 +1,6 @@
-<?php require_once("../../resources/config.php"); ?>
 <?php
+
+require_once("../../resources/config.php");
 
 $query = "SELECT * FROM users";
 $statement = $db->prepare($query);

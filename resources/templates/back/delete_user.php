@@ -1,7 +1,7 @@
-<?php 
+<?php
 require_once("../../resources/config.php");
 
-if(isset($_GET['delete_user_id'])){
+if(isset($_SESSION['admin']) && isset($_GET['delete_user_id'])){
 	$id = filter_input(INPUT_GET, 'delete_user_id', FILTER_SANITIZE_NUMBER_INT);
 	$query = "DELETE FROM users WHERE id = :id";
 	$statement = $db->prepare($query);

@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 require_once("../../resources/config.php");
 
-if(isset($_GET['delete_report_id'])){
+if(isset($_SESSION['admin']) && isset($_GET['delete_report_id'])){
 	$order_id = filter_input(INPUT_GET, 'order_id', FILTER_SANITIZE_NUMBER_INT);
 	$id = filter_input(INPUT_GET, 'delete_report_id', FILTER_SANITIZE_NUMBER_INT);
 	$query = "DELETE FROM reports WHERE id = :id";

@@ -1,7 +1,7 @@
-<?php 
-require_once("../../resources/config.php"); 
+<?php
+require_once("../../resources/config.php");
 
-if(isset($_GET['delete_order_id'])){
+if(isset($_SESSION['admin']) && isset($_GET['delete_order_id'])){
 	$id = filter_input(INPUT_GET, 'delete_order_id', FILTER_SANITIZE_NUMBER_INT);
 	$query = "DELETE FROM orders WHERE id = :id";
 	$statement = $db->prepare($query);

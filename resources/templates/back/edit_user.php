@@ -1,10 +1,10 @@
 <?php require_once("../../resources/config.php"); ?>
 
-<?php 
+<?php
 
 use \Gumlet\ImageResize;
 
-if(isset($_GET['id'])){
+if(isset($_SESSION['admin']) && isset($_GET['id'])){
   $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
   $query = "SELECT * FROM users WHERE id = :id";
   $statement = $db->prepare($query);
@@ -81,7 +81,7 @@ if(isset($_POST['update_user'])){
                         </h1>
 
                       <div class="col-md-4 user_image_box">
-                          
+
                     <a href="#" data-toggle="modal" data-target="#photo-library">
                       <?php if(isset($row['photo'])): ?>
                         <img class="img-responsive" src="../resources/uploads/<?= $user_photo ?>" alt="photo">
@@ -103,20 +103,20 @@ if(isset($_POST['update_user'])){
                             <!-- <div class="form-group">
                                 <label for="first name">First Name</label>
                             <input type="text" name="first_name" class="form-control"  >
-                               
+
                            </div>
 
                             <div class="form-group">
                                 <label for="last name">Last Name</label>
                             <input type="text" name="last_name" class="form-control" >
-                               
+
                            </div> -->
 
 
                             <div class="form-group">
                                 <label for="password">Password</label>
                             <input type="password" name="password" id="password" class="form-control" value="<?= $password ?>">
-                               
+
                            </div>
 
 
@@ -133,7 +133,7 @@ if(isset($_POST['update_user'])){
 
                             <!-- Update Button -->
                             <input type="submit" name="update_user" class="btn btn-primary pull-right" value="Update" >
-                               
+
                            </div>
 
                         </div>
@@ -145,4 +145,3 @@ if(isset($_POST['update_user'])){
 
 
 
-    

@@ -19,9 +19,9 @@ function redirect_prior_page($prior_webpage_name){
 }
 
 function set_message($msg){
-	if(!empty($msg)){
+	if (!empty($msg)){
 		$_SESSION['message'] = $msg;
-	}else{
+	} else {
 		$msg = "";
 	}
 }
@@ -35,9 +35,6 @@ function display_message(){
 
 function toast_message() {
 	if(isset($_SESSION['message'])) {
-        echo '<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>';
-        echo '<link href="node_modules/toastr/build/toastr.css" rel="stylesheet"/>';
-        echo '<script src="node_modules/toastr/toastr.js"></script>';
         echo '<script type="text/javascript">', 'let message =', json_encode($_SESSION['message']), ';', '</script>';
         echo '<script type="text/javascript">', 'toastr.options.closeButton = true;', 'toastr.info(message);', '</script>';
         unset($_SESSION['message']);
@@ -74,6 +71,19 @@ function sanitize_password() {
 function valid_password() {
 	$password_length = strlen(sanitize_password());
 	return $password_length >= 8;
+}
+
+function is_admin($db, $email) {
+	$query = "SELECT * FROM users WHERE role='admin'";
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$admins = $statement->fetchAll();
+	foreach ($admins as $admin) {
+		if ($admin['email'] = $email) {
+			return true;
+		}
+	}
+	return false;
 }
 
 ?>

@@ -32,6 +32,10 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link href="./../node_modules/toastr/build/toastr.css" rel="stylesheet"/>
+    <script src="./../node_modules/toastr/toastr.js"></script>
+
     <link href="css/mystyle.css" rel="stylesheet">
 
 </head>
@@ -43,7 +47,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" >
             <!-- Brand and toggle get grouped for better mobile display -->
-            
+
             <?php include(TEMPLATE_BACK . DS . "top_nav.php") ?>
 
             <?php include(TEMPLATE_BACK . DS . "side_nav.php") ?>

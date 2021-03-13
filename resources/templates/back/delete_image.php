@@ -2,7 +2,7 @@
 
 require_once("../../resources/config.php");
 
-if(isset($_GET['page']) && isset($_GET['delete_image_id']) && isset($_GET['filename'])) {
+if(isset($_SESSION['admin']) && isset($_GET['page']) && isset($_GET['delete_image_id']) && isset($_GET['filename'])) {
 	$page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$id = filter_input(INPUT_GET, 'delete_image_id', FILTER_SANITIZE_NUMBER_INT);
 	$filename = filter_input(INPUT_GET, 'filename', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

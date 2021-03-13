@@ -1,7 +1,7 @@
-<?php 
-require_once("../../resources/config.php"); 
+<?php
+require_once("../../resources/config.php");
 
-if(isset($_GET['delete_category_id'])){
+if(isset($_SESSION['admin']) && isset($_GET['delete_category_id'])){
 
 	$id = filter_input(INPUT_GET, 'delete_category_id', FILTER_SANITIZE_NUMBER_INT);
 	$query = "DELETE FROM categories WHERE id = :id";
@@ -13,7 +13,6 @@ if(isset($_GET['delete_category_id'])){
 	redirect("index.php?categories");
 
 }else{
-
 	redirect("index.php?categories");
 
 }

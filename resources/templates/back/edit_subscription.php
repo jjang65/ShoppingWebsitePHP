@@ -1,9 +1,9 @@
 <?php require_once("../../resources/config.php"); ?>
 
 
-<?php 
+<?php
 
-if(isset($_GET['id'])){
+if(isset($_SESSION['admin']) && isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     $query = "SELECT * FROM subscriptions WHERE id= :id";
     $statement = $db->prepare($query);
@@ -21,7 +21,7 @@ if(isset($_GET['id'])){
         $statement_update->bindValue(':email', $email);
         $statement_update->bindValue(':id', $id, PDO::PARAM_INT);
         $statement_update->execute();
-        
+
         set_message("Subscription has been Updated");
         redirect("index.php?subscriptions");
     }
@@ -57,7 +57,7 @@ if(isset($_GET['id'])){
 <div class="col-md-4">
 
     <form action="#" method="post">
-        
+
         <div class="form-group">
             <label for="email">Email</label>
             <input type="text" id="email" name="email" value="<?= $row['email'] ?>" class="form-control">
@@ -65,7 +65,7 @@ if(isset($_GET['id'])){
 
         <div class="form-group">
             <input type="submit" name="update_subscription" class="btn btn-primary" value="Edit Subscription">
-        </div>      
+        </div>
 
     </form>
 
